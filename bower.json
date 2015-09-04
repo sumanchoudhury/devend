@@ -1,0 +1,52 @@
+{
+  "name": "endorset",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Communycreation/endorset",
+  "authors": [
+    "Mithun Das <mithun.programmer@gmail.com>"
+  ],
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.2",
+    "bootstrap": "~3.3.5",
+    "angular-resource": "1.4.2",
+    "angular-cookies": "~1.4.2",
+    "angular-route": "1.4.2",
+    "angular-ui-router": "~0.2.15",
+    "angular-sanitize": "1.4.2",
+    "angular-animate": "1.4.2",
+    "angular-touch": "1.4.2",
+    "angular-file-upload": "~1.1.5",
+    "moment": "~2.10.3",
+    "angular-moment": "~0.10.1",
+    "angular-confirm": "~1.0.0",
+    "angular-validation-match": "~1.5.1",
+    "angular-ui-bootstrap": "~0.13.0",
+    "angular-formly": "~6.16.1",
+    "angular-bootstrap": "~0.13.0",
+    "angular-bootstrap-confirm": "~0.1.1",
+    "angular-off-click": "~0.0.7",
+    "ng-file-upload": "~5.0.9",
+    "cloudinary_ng": ">=0.1.1",
+    "ngReact": "~0.1.7",
+    "angular-loading-bar": "~0.8.0",
+    "ngtoast": "~1.5.4",
+    "angular-filter": "~0.5.4"
+  },
+  "devDependencies": {},
+  "appPath": "client/",
+  "resolutions": {
+    "angular": "1.4.2"
+  }
+}

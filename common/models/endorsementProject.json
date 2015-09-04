@@ -1,0 +1,52 @@
+{
+  "name": "endorsementProject",
+  "plural": "endorsementProjects",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "required": true
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "endorsementCompanyId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "endorsementCompany": {
+      "type": "belongsTo",
+      "model": "endorsementCompany",
+      "foreignKey": "endorsementCompanyId"
+    },
+    "endorsementSkills": {
+      "type": "hasMany",
+      "model": "endorsementSkill",
+      "foreignKey": "endorsementProjectId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

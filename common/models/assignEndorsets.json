@@ -1,0 +1,57 @@
+{
+  "name": "assignEndorsets",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "userDetailId": {
+      "type": "number",
+      "required": true
+    },
+    "inviteUserId": {
+      "type": "number",
+      "required": true
+    },
+    "endorsetSentId": {
+      "type": "number",
+      "required": true
+    },
+    "createdBy": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "inviteUser": {
+      "type": "belongsTo",
+      "model": "inviteUser",
+      "foreignKey": "inviteUserId"
+    },
+    "endorsetSent": {
+      "type": "belongsTo",
+      "model": "endorsetSent",
+      "foreignKey": "endorsetSentId"
+    },
+    "companyUser": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "createdBy"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

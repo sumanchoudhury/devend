@@ -1,0 +1,63 @@
+*{
+  font-family: Gill Sans MT;
+}
+h2,h3{
+  font-weight:normal;
+}
+h2{
+font-size:36px;
+}
+h3{
+font-size:22px;
+}
+.labelsection{
+font-style: italic;
+}
+i.fa.fa-envelope{
+  color: $primary-font-color;
+  background-color: $input-border;
+  padding: 8px 10px;
+  height:21px;
+  position: relative;
+  top: 1px;
+}
+i.fa.fa-lock {
+  color: $primary-font-color;
+  background-color: $input-border;
+  padding: 7px 12px;
+  height: 23px;
+  font-size: 23px;
+  position: relative;
+  top: 4px;
+  left:1px;
+}
+i.fa.fa-envelope{
+	font-size:19px;
+}
+i.fa.fa-lock{
+	/*font-size:26px;*/
+}
+@include breakpoint($crappy-devices){
+	.right-content h2{
+	font-size: 16px;
+	clear: both;
+	position: relative;
+	top: 9px;
+	}
+	.left-content h3{
+	font-size:12px;
+	}
+}
+@include breakpoint($smalldevice-portrait){
+	.right-content h2{
+	font-size:24px;
+	}
+	.left-content h3{
+	font-size:14px;
+	}
+}
+@include breakpoint($mediumdevices-portrait){
+	.left-content h3{
+	font-size:22px;
+	}
+}

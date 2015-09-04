@@ -1,0 +1,64 @@
+<div class="row" ng-if="isQuestionEnable == true">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Question / Answer</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <form name="questionFrm" novalidate ng-if="currentUser.userTypeId == '5589c01bc05dc30300447177'">
+              <div class="col-md-12">
+                <textarea rows="3" cols="35" ng-model="question.comment" required=""></textarea>
+              </div>
+              <div class="col-md-12">
+                <button class="btn btn-success" ng-click="sendQuestion(questionFrm.$valid, 0, false)">Send</button> &nbsp;
+                <button class="btn btn-success" ng-click="sendQuestion(questionFrm.$valid, 0, true)">Draft</button>
+              </div>
+            </form>
+            <div class="row" ng-hide="endorsementData.endorserEndorsement.questions.length"><div class="col-md-12">No questions found!</div></div>
+            <div class="row" ng-repeat="question in endorsementData.endorserEndorsement.questions track by question.id" ng-if="question.hrDetail.id == currentUser.id || question.isDraft != true">
+              <div class="col-md-12" ng-if="question.replyId == 0 || question.replyId == undefined">
+                <div class="well">
+                  <img ng-src="{{question.hrDetail.thumbImage}}" ng-if="question.hrDetail.thumbImage != undefined">
+                  <strong>{{question.hrDetail.firstName}} {{question.hrDetail.lastName}}</strong> {{question.comment}}
+                  <a href="javascript:void(0)" ng-click="showQuestionEdit(question)" ng-if="currentUser.userTypeId == '5589c01bc05dc30300447177' && question.hrDetail.id == currentUser.id && (question.questions.length == 0 || question.questions == undefined)">Edit</a><br>
+                  <a href="javascript:void(0)" ng-click="showReply(question.id, null)" ng-hide="showReplyForm[question.id].active" ng-if="currentUser.userTypeId == '5589c00cc05dc30300447176' && (question.questions.length == 0 || question.questions == undefined)">Reply</a>
+
+                  <!--reply form-->
+                  <form name="reply[question.id]" novalidate="" ng-show="showReplyForm[question.id].active" ng-if="currentUser.userTypeId == '5589c00cc05dc30300447176'">
+                    <textarea rows="1" cols="35" ng-model="reply.comment[question.id]" required=""></textarea>
+                    <button class="btn btn-success" ng-click="sendReply(question.id, 0, false)">Reply</button> &nbsp;
+                    <button class="btn btn-success" ng-click="sendReply(question.id, 0, true)">Draft</button>
+                  </form>
+
+                  <!--question edit form-->
+                  <form name="questionEdit[question.id]" novalidate="" ng-show="showQuestionEditForm[question.id].active" ng-if="currentUser.userTypeId == '5589c01bc05dc30300447177'">
+                    <textarea rows="1" cols="35" ng-model="questionUpdate.comment" required=""></textarea>
+                    <button class="btn btn-success" ng-click="sendQuestion(true, question.id, false)">Update</button>
+                  </form>
+
+                </div>
+                <div class="row" ng-repeat="question1 in question.questions track by question1.id" ng-if="question1.endorser.id == currentUser.id || question1.isDraft != true">
+                  <div class="col-md-1">&nbsp;</div>
+                  <div class="col-md-11">
+                    <div class="well">
+                      <img ng-src="{{question1.endorser.thumbImage}}"  ng-if="question1.endorser.thumbImage != undefined">
+                      <strong>{{question1.endorser.firstName}} {{question1.endorser.lastName}}</strong> {{question1.comment}}
+                      <input ng-if="isCompanyAdmin == true || isCompanyUser == true" type="number" ng-model="hrFeedback.answerScores[question1.id]" name="hrFeedbackanswerScores" required="" max="10" min="1">
+                      <a href="javascript:void(0)" ng-click="showReply(question1.id, question1)" ng-if="currentUser.userTypeId == '5589c00cc05dc30300447176' && question1.endorser.id == currentUser.id">Edit</a> <br>
+                      <!--reply edit form-->
+                      <form name="reply[question1.id]" novalidate="" ng-show="showReplyForm[question1.id].active">
+                        <textarea rows="1" cols="35" ng-model="reply.comment[question.id]" required=""></textarea>
+                        <button class="btn btn-success" ng-click="sendReply(question.id, question1.id, false)">Update</button>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

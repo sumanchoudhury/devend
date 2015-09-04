@@ -1,0 +1,69 @@
+<div class="row"><div class="col-sm-12"><h3>Endorsements draft ({{endorsementData.endorsement.userProfile.profileName}})</h3></div></div>
+<div class="row"><div class="col-sm-12">&nbsp;</div></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body" ng-if="endorsementData.endorsement != null || endorsementData.endorsement != undefined">
+        <form name="draftForm" novalidate>
+          <div class="row">
+            <div class="col-md-12">
+              <strong>{{endorsementData.endorsement.endorsement.userDetail.firstName}} {{endorsementData.endorsement.endorsement.userDetail.lastName}}</strong>
+              <span ng-if="endorsementData.endorsement.endorsement.userDetail.gender != 'Female'">says you worked with him at</span>
+              <span ng-if="endorsementData.endorsement.endorsement.userDetail.gender == 'Female'">says you worked with her at</span>
+            </div>
+          </div>
+          <div class="row" ng-repeat="company in endorsementData.endorsement.endorsement.endorsementCompanies track by company.id">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <strong>{{company.companyName}}</strong> in <strong>{{company.city}}</strong>, <strong>{{company.country}}</strong> from {{company.startDate | date:'dd/MM/yyyy'}} to {{company.endDate | date:'dd/MM/yyyy'}}
+                  as <strong>{{endorsementData.endorsement.jobTitle}}</strong> - <strong>First Level Management</strong> <br>
+                </div>
+              </div>
+              <div class="row" ng-repeat="project in company.endorsementProjects track by project.id">
+                <div class="col-md-12">
+                  <p>About the <strong>"{{project.projectName}}"</strong> at <strong>{{company.companyName}}</strong>
+                    <span ng-if="endorsementData.endorsement.endorsement.userDetail.gender != 'Female'"> he says</span>
+                    <span ng-if="endorsementData.endorsement.endorsement.userDetail.gender == 'Female'"> she says</span>:
+                  </p>
+                  <p>{{project.shortDescription}}</p>
+                  <p><strong>Rate the project above.</strong>
+                    <input type="number" ng-disabled="disableEndorsementElement" ng-model="endorsementData.endorsement.projectScores[project.id]" name="projectScores[]" required="" max="10">
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p><strong><span ng-if="endorsementData.endorsement.endorsement.userDetail.gender != 'Female'"> He</span>
+                <span ng-if="endorsementData.endorsement.endorsement.userDetail.gender == 'Female'"> She</span> asks to rate the following skills:</strong></p>
+              <p ng-repeat="skill in endorsementData.endorsement.endorsement.skills.split(',') track by $skillInex">
+                <span><strong>{{skill}}</strong></span>
+                <input type="number" ng-disabled="disableEndorsementElement" ng-model="endorsementData.endorsement.skillScores[skill]" name="skillScores[]" required="" max="10">
+                <a href="javascript:void(0)" ng-hide="showSkillCommentsForm[skill].active" ng-click="anyComment(skill)">Any Comment?</a>
+                <input type="text" ng-model="endorsementData.endorsement.skillComments[skill]" name="skillComments" ng-if="showSkillCommentsForm[skill].active == true" ng-disabled="disableEndorsementElement">
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p>What do you think about {{endorsementData.endorsement.endorsement.userDetail.firstName}}? This will be your lead quote on this endorsement </p>
+              <p>
+                <textarea cols="35" rows="7" ng-disabled="disableEndorsementElement" ng-model="endorsementData.endorsement.leadQuote" name="leadQuote" required=""></textarea>
+              </p>
+            </div>
+          </div>
+          <div class="row" ng-if="disableEndorsementElement == false">
+            <div class="col-md-2"><button class="btn btn-success" ng-click="saveEndorsement(draftForm.$valid, true)">Save Draft</button></div>
+            <div class="col-md-8">&nbsp;</div>
+            <div class="col-md-2"><button class="btn btn-success" ng-click="saveEndorsement(draftForm.$valid, false)">Submit</button></div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row"><div class="col-sm-12">&nbsp;</div></div>

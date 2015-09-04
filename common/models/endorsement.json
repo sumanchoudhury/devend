@@ -1,0 +1,129 @@
+{
+  "name": "endorsement",
+  "plural": "endorsements",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "jobTitle": {
+      "type": "string",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "level": {
+      "type": "string"
+    },
+    "format": {
+      "type": "object"
+    },
+    "why": {
+      "type": "string"
+    },
+    "skills": {
+      "type": "string"
+    },
+    "userDetailId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "userProfileId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "isDraft": {
+      "type": "boolean"
+    },
+    "endorserSeenAt": {
+      "type": "date"
+    },
+    "endorserAcceptStatus": {
+      "type": "number"
+    },
+    "endorserAcceptStatusText": {
+      "type": "string"
+    },
+    "endorserId": {
+      "type": "number",
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "endorsementCompanies": {
+      "type": "hasMany",
+      "model": "endorsementCompany",
+      "foreignKey": "endorsementId"
+    },
+    "hrFeedbacks": {
+      "type": "hasMany",
+      "model": "hrFeedback",
+      "foreignKey": "endorsementId"
+    },
+    "userProfile": {
+      "type": "belongsTo",
+      "model": "userProfile",
+      "foreignKey": "userProfileId"
+    },
+    "endorserEndorsements": {
+      "type": "hasMany",
+      "model": "endorserEndorsement",
+      "foreignKey": "endorsementId"
+    },
+    "endorsementSkills": {
+      "type": "hasMany",
+      "model": "endorsementSkill",
+      "foreignKey": "endorsementId"
+    },
+    "questions": {
+      "type": "hasMany",
+      "model": "question",
+      "foreignKey": "endorsementId"
+    },
+    "endorsets": {
+      "type": "hasMany",
+      "model": "endorset",
+      "foreignKey": "endorsementId"
+    },
+    "endorserUser": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "endorserId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

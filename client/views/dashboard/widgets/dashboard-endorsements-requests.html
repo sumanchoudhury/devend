@@ -1,0 +1,114 @@
+<!--Endorsements Request left panel-->
+<div class="col-md-3">
+  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+  <div class="row">
+    <div class="col-md-4"><a href="javascript:void(0)" ng-click="openSentTab()" ng-class="{active: mainTabs.endorsements.buttons.requests.buttons.sent.active == true}" class="btn btn-sm btn-success">Sent</a></div>
+    <div class="col-md-4"><a href="javascript:void(0)" ng-click="openDraftTab()" ng-class="{active: mainTabs.endorsements.buttons.requests.buttons.draft.active == true}" class="btn btn-sm btn-success">Draft</a></div>
+    <div class="col-md-4"><a href="javascript:void(0)" ng-click="openReceivedTab()" ng-class="{active: mainTabs.endorsements.buttons.requests.buttons.received.active == true}" class="btn btn-sm btn-success">Received</a></div>
+  </div>
+  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+  <div class="row">
+    <div ng-class="{'col-md-6': mainTabs.endorsements.buttons.requests.buttons.draft.active == false, 'col-md-12': mainTabs.endorsements.buttons.requests.buttons.draft.active == true}">
+      <input type="text" class="form-control"  ng-model="endorsementSearch" placeholder="Search Name">
+    </div>
+    <div class="col-md-6" ng-if="mainTabs.endorsements.buttons.requests.buttons.draft.active == false">
+      <div class="btn-group" dropdown>
+        <button type="button" class="btn btn-success">Status</button>
+        <button type="button" class="btn btn-success dropdown-toggle" dropdown-toggle>
+          <span class="caret"></span>
+          <span class="sr-only">Split button!</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="javascript:void(0)"><input ng-model="filterRequestStatus.accepted" value="accepted" type="checkbox"/>&nbsp; Accepted</a></li>
+          <li><a href="javascript:void(0)"><input ng-model="filterRequestStatus.pending" type="checkbox"/>&nbsp; Pending</a></li>
+          <li><a href="javascript:void(0)"><input ng-model="filterRequestStatus.declined" type="checkbox"/>&nbsp; Declined</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+  <div class="row" ng-if="mainTabs.endorsements.buttons.requests.buttons.sent.active == true">
+    <!--endorsement-sent-request-list name="endorsementSentRequest" props="props" endorsements="endorsements" watch-depth="reference"></endorsement-sent-request-list-->
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in endorsements  | filter:endorsementSearch | filterRequestStatus:filterRequestStatus track by item.id" ng-click="selectRequest(item, true)" ng-class="{active: item.id == endorsement.id}">
+        <p>
+          <img class="img-responsive" ng-src="{{item.endorserUser.thumbImage}}" ng-if="item.endorserUser.thumbImage != undefined">
+          <span>{{item.firstName}} {{item.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+        </p>
+        <p>
+          <span ng-if="item.endorserSeenAt != undefined">Seen <span am-time-ago="item.endorserSeenAt"></span></span>  &nbsp;&nbsp;
+          <span ng-if="item.endorserAcceptStatus == undefined">Pending</span>
+          <span ng-if="item.endorserAcceptStatus == 1">Accepted</span>
+          <span ng-if="item.endorserAcceptStatus == 2">Declined</span>
+        </p>
+      </li>
+
+    </ul>
+  </div>
+  <div class="row" ng-if="mainTabs.endorsements.buttons.requests.buttons.draft.active == true">
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in draftEndorsements  | filter:endorsementSearch  | filterRequestStatus:filterRequestStatus track by item.id" ng-click="selectRequest(item, false)" ng-class="{active: item.id == endorsement.id}">
+        <p>
+          <img class="img-responsive" ng-src="{{item.endorserUser.thumbImage}}" ng-if="item.endorserUser.thumbImage != undefined">
+          <span>{{item.firstName}} {{item.lastName}}</span>
+        </p>
+        <p>
+          <span>Saved <span am-time-ago="item.created"></span></span>
+        </p>
+      </li>
+
+    </ul>
+  </div>
+  <div class="row" ng-if="mainTabs.endorsements.buttons.requests.buttons.received.active == true">
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in receivedEndorsements | filter:endorsementSearch | filterRequestStatus:filterRequestStatus track by item.id" ng-click="selectReceivedRequest(item)" ng-class="{active: item.id == receivedEndorsement.id}">
+        <p>
+          <img class="img-responsive" ng-src="{{item.userDetail.thumbImage}}" ng-if="item.userDetail.thumbImage != undefined">
+          <span>{{item.userDetail.firstName}} {{item.userDetail.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+        </p>
+        <p>
+          <span ng-hide="item.endorserAcceptStatus"><a href="javascript:void(0)" ng-click="setEndorserAcceptStatus(item, 1)">Accept</a></span>   &nbsp;&nbsp;
+          <span ng-hide="item.endorserAcceptStatus"><a href="javascript:void(0)" ng-click="setEndorserAcceptStatus(item, 2)">Decline</a></span>
+
+          <span ng-if="item.endorserAcceptStatus == 1">Accepted</span>   &nbsp;&nbsp;
+          <span ng-if="item.endorserAcceptStatus == 2">Declined</span>
+        </p>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<div class="col-md-1">&nbsp;</div>
+<!--Endorsements Request right panel-->
+<div class="col-md-8">
+  <div class="row" ng-if="mainTabs.endorsements.buttons.requests.active == true">
+    <div class="col-md-12">
+      <div ng-hide="mainTabs.endorsements.buttons.requests.buttons.received.active">
+        <dashboard-endorsemts-requests-forms></dashboard-endorsemts-requests-forms>
+
+      </div>
+      <div ng-if="mainTabs.endorsements.buttons.requests.buttons.received.active == true">
+        <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+        <div class="alert alert-danger" ng-show="errorMsg">
+          <div ng-repeat="errorItems in errors track by $index">
+            <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+          </div>
+        </div>
+        <div class="row"><div class="col-sm-12"><h3>Request Received</h3></div></div>
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <div class="row" ng-if="receivedEndorsement.userDetail != undefined">
+          <div class="col-md-12">
+            <received-endorsement></received-endorsement>
+            <div class="row" ng-hide="receivedEndorsement.endorserAcceptStatus">
+              <div class="col-md-2"><button class="btn btn-success" ng-click="setEndorserAcceptStatus(receivedEndorsement, 2)">Decline</button></div>
+              <div class="col-md-8">&nbsp;</div>
+              <div class="col-md-2"><button class="btn btn-success" ng-click="setEndorserAcceptStatus(receivedEndorsement, 1)">Accept</button></div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

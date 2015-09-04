@@ -1,0 +1,89 @@
+<div class="row" ng-if="endorsementData != false">
+  <div class="col-md-12">
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row-fluid">
+              <div class="span6">
+                <div class="pull-right">
+                  <p>
+                    <img class="img-responsive" ng-src="{{endorsementData.endorsement.userDetail.fullImage}}" ng-if="endorsementData.endorsement.userDetail.fullImage != undefined">
+                  </p>
+                </div>
+              </div>
+              <div class="span6">
+                <p>
+                  <strong>{{endorsementData.endorserEndorsement.userDetail.firstName}} {{endorsementData.endorserEndorsement.userDetail.lastName}}</strong> was
+                  <strong>{{endorsementData.endorsement.userDetail.firstName}}</strong>'s
+                  {{endorsementData.endorsement.jobTitle}} at
+                <div ng-repeat="company in endorsementData.endorsement.endorsementCompanies track by company.id">
+                  <div>
+                    <strong>{{company.companyName}}</strong> in <strong>{{company.city}}</strong>, <strong>{{company.country}}</strong> from {{company.startDate | date:'dd/MM/yyyy'}} to {{company.endDate | date:'dd/MM/yyyy'}}
+                  </div>
+                </div>
+                </p>
+                <p>Endorsement Score: <span class="badge">{{endorsementData.avgEndorsetScore}}</span></p>
+                <p>
+                  Endorser Reputation: <span class="badge">{{endorsementData.endorserScore}}</span>
+                  <!--input ng-if="isCompanyAdmin == true || isCompanyUser == true" type="number" ng-model="hrFeedback.score" name="hrFeedbackScore" required="" max="10"-->
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="media">
+          <div class="media-left">
+            <a href="#">
+
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">Video coming soon!</h4>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <p>{{endorsementData.endorserEndorsement.userDetail.firstName}} Endorsed {{endorsementData.endorsement.userDetail.firstName}} for:</p>
+            <p ng-repeat="(skill, skillScore) in endorsementData.endorserEndorsement.skillScores">
+              {{skill}}: <span class="badge">{{skillScore}}</span>
+              <input ng-if="isCompanyAdmin == true || isCompanyUser == true" type="number" ng-model="hrFeedback.skillScores[skill]" name="hrFeedbackSkillScores" required="" max="10" min="1">
+            </p>
+            <p ng-repeat="company in endorsementData.endorsement.endorsementCompanies track by $index">
+          <span ng-repeat="project in company.endorsementProjects track by project.id">
+            {{project.projectName}}: <span class="badge">{{endorsementData.endorserEndorsement.projectScores[project.id]}}</span>
+            <input ng-if="isCompanyAdmin == true || isCompanyUser == true" type="number" ng-model="hrFeedback.projectScores[project.id]" name="hrFeedbackProjectScores" required="" max="10" min="1">
+          </span>
+
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <blockquote><p>"{{endorsementData.endorserEndorsement.leadQuote}}"</p><p><small>{{endorsementData.endorserEndorsement.userDetail.firstName}} {{endorsementData.endorserEndorsement.userDetail.lastName}}</small></p></blockquote>
+            <input ng-if="isCompanyAdmin == true || isCompanyUser == true" type="number" ng-model="hrFeedback.leadQuoteScore" name="hrFeedbackLeadQuote" required="" max="10" min="1">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+
+
+  </div>
+</div>

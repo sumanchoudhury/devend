@@ -1,0 +1,29 @@
+<div class="row" ng-if="isProfessional == true">
+  <div class="col-md-12">
+    <dashboard-endorsemts-requests-forms></dashboard-endorsemts-requests-forms>
+  </div>
+</div>
+<div class="row" ng-if="isEndorser == true">
+  <div class="col-md-12">
+    <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+    <div class="alert alert-danger" ng-show="errorMsg">
+      <div ng-repeat="errorItems in errors track by $index">
+        <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+      </div>
+    </div>
+    <div class="row"><div class="col-sm-12"><h3>Request Received</h3></div></div>
+    <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+    <div class="row" ng-if="receivedEndorsement.userDetail != undefined">
+      <div class="col-md-12">
+        <received-endorsement></received-endorsement>
+        <div class="row" ng-hide="receivedEndorsement.endorserAcceptStatus">
+          <div class="col-md-2"><button class="btn btn-success" ng-click="setEndorserAcceptStatus(receivedEndorsement, 2)">Decline</button></div>
+          <div class="col-md-8">&nbsp;</div>
+          <div class="col-md-2"><button class="btn btn-success" ng-click="setEndorserAcceptStatus(receivedEndorsement, 1)">Accept</button></div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

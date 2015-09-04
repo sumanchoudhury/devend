@@ -1,0 +1,51 @@
+{
+  "name": "vote",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "vote": {
+      "type": "number",
+      "required": true
+    },
+    "model": {
+      "type": "string",
+      "required": true
+    },
+    "modelId": {
+      "type": "number",
+      "required": true
+    },
+    "hrId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "hr": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "hrId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

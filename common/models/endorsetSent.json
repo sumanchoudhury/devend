@@ -1,0 +1,83 @@
+{
+  "name": "endorsetSent",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "comments": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "userDetailId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "userProfileId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "companyUserId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "companyRequestId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "seenAt": {
+      "type": "date"
+    },
+    "status": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "userProfile": {
+      "type": "belongsTo",
+      "model": "userProfile",
+      "foreignKey": "userProfileId"
+    },
+    "companyUser": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "companyUserId"
+    },
+    "companyRequest": {
+      "type": "belongsTo",
+      "model": "companyRequest",
+      "foreignKey": "companyRequestId"
+    },
+    "assignEndorsets": {
+      "type": "hasMany",
+      "model": "assignEndorsets",
+      "foreignKey": "endorsetSentId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

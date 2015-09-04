@@ -1,0 +1,33 @@
+<div class="content">
+  <div class="form">
+    <span ng-if="profiles.length == 0">You have no professional profile yet.</span><br>
+    <span ng-if="profiles.length == 0">Add your first one!</span>
+    <form name="profileForm" ng-submit="save(profileForm.$valid)" novalidate>
+      <fieldset>
+        <legend>New Profile</legend>
+
+
+          <label>Name</label>
+          <input type="text" id="profileName" name="profileName" ng-model="userProfile.profileName" placeholder="Profile name" required />
+          <span style="color:red" ng-show="profileForm.profileName.$dirty && profileForm.profileName.$invalid && profileForm.profileName.$error.required" class="help-inline">Profile name is required</span>
+        <br>
+
+          <label>Industry Name</label>
+          <input type="text" id="industry" name="industry" ng-model="userProfile.industry" placeholder="Industry name" required />
+          <span style="color:red" ng-show="profileForm.industry.$dirty && profileForm.industry.$invalid && profileForm.industry.$error.required" class="help-inline">Industry name is required</span>
+        <br>
+          <label>Industry Code</label>
+          <input type="text" id="industryCode" name="industryCode" ng-model="userProfile.industryCode" placeholder="Industry code" required />
+          <span style="color:red" ng-show="profileForm.industryCode.$dirty && profileForm.industryCode.$invalid && profileForm.industryCode.$error.required" class="help-inline">Industry code is required</span>
+        <br>
+          <label>Description</label>
+          <textarea type="text" id="shortDescription" name="shortDescription" ng-model="userProfile.shortDescription"></textarea>
+
+      </fieldset>
+      <div class="actions">
+        <label></label>
+        <input type="submit" value="Save" name="save" />
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+header{
+	background:#F7F7F7;
+	min-height: 124px;
+	vertical-align:middle;
+	border-bottom: 1px solid #ECECEC;
+}
+.top-form {
+	margin-top: 40px;
+	float:right;
+}
+.logo{
+	margin-top:19px;
+}
+.form-group{
+	float:left;
+}
+@include breakpoint($crappy-devices){
+.logo img{
+	max-width:95%;
+}
+}
+@include breakpoint($smalldevice-portrait){
+.logo img{
+	max-width:95%;
+}
+}

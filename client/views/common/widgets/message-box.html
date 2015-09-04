@@ -1,0 +1,8 @@
+<!--Site wide error or success message display-->
+<div class="alert alert-success" ng-if="success != '' && success != false">{{success}}</div>
+<div class="alert alert-danger" ng-if="error != '' && error != false">
+  <div ng-repeat="errorItems in errors">
+    <div ng-repeat="errorItem in errorItems">{{errorItem}}</div>
+  </div>
+</div>
+<!--Site wide error or success message display end-->

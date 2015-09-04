@@ -1,0 +1,132 @@
+<div class="left-content" ng-controller="HomeController">
+  <h3>Endorset allows professionals to raise their career and reputation through high value endorsements.</h3>
+  <video controls>
+    <source src="mov_bbb.mp4" type="video/mp4">
+    <source src="mov_bbb.ogg" type="video/ogg">
+    Your browser does not support HTML5 video. </video>
+</div>
+<div class="right-content" ng-controller="SignUpController" ng-if="currentUser.id == undefined">
+  <h2>Be Credible, Join Endorset</h2>
+  <section>
+    <div style="background-color: #008000; margin-bottom: 10px; padding: 5px;" ng-show="successMsg">{{successMsg}}</div>
+    <div style="background-color: red; margin-bottom: 10px; padding: 5px;" ng-show="errorMsg">
+      <div ng-repeat="errorItems in errors track by $index">
+        <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+      </div>
+    </div>
+    <div class="tabs">
+      <nav>
+        <ul>
+          <li><a ng-class="{'current': professionalTab == true, 'resttab': professionalTab == false}" href="javascript:void(0);" ng-click="showProfessionalTab()"><span>Professional</span></a></li>
+          <li><a ng-class="{'current': businessTab == true, 'resttab': businessTab == false}" href="javascript:void(0);" ng-click="showBusinessTab()"><span>Business</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+  <div class="form" ng-show="professionalTab">
+    <form method="post" name="profForm" id="profForm" ng-submit="register(profForm.$valid)" novalidate>
+      <input type="hidden" ng-model="user.userTypeId" value="5589c00cc05dc30300447176">
+      <i class="fa fa-envelope"></i>
+      <input type="email" name="email" id="email" placeholder="Your Email" value="" ng-model="user.email" required />
+      <span ng-show="profForm.email.$dirty && profForm.email.$invalid">
+        <span style="color:red" ng-show="profForm.email.$error.required">Email is required.</span>
+        <span style="color:red" ng-show="profForm.email.$error.email">Invalid email address.</span>
+      </span>
+      <br/>
+      <i class="fa fa-lock"></i>
+      <input type="password" name="password" id="password" placeholder="Password" ng-model="user.password" required />
+      <span style="color:red" ng-show="profForm.password.$dirty && profForm.password.$invalid && profForm.password.$error.required">Password is required.</span>
+      <br/>
+      <i class="fa fa-lock"></i>
+      <input type="password" placeholder="confirm password" name="confirm_password" id="confirm_password" ng-model="user.confirm_password" required nx-equal="user.password" />
+      <span ng-show="profForm.confirm_password.$dirty && profForm.confirm_password.$invalid">
+        <span style="color:red" ng-show="profForm.confirm_password.$error.required">Confirm password is required.</span>
+        <span style="color:red" ng-show="profForm.confirm_password.$error.nxEqual" >Passwords do not match.</span>
+      </span>
+      <br/>
+      <input type="submit" value="Register" name="register" />
+    </form>
+  </div>
+  <div class="form" ng-show="businessTab">
+
+    <form method="post" name="businessForm" id="businessForm" ng-submit="registerBusiness(businessForm.$valid)" novalidate>
+      <input type="hidden" ng-model="company.userTypeId" value="5589c01bc05dc30300447177">
+      <div ng-if="companyStep==1">
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="companyName" placeholder="Company Name" value="" ng-model="company.companyName" required />
+        <span ng-show="businessForm.companyName.$dirty && businessForm.companyName.$invalid">
+          <span style="color:red" ng-show="businessForm.companyName.$error.required">Company Name is required.</span>
+        </span>
+        <br/>
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="companyNumber" placeholder="Company Number" value="" ng-model="company.companyNumber" required />
+        <span ng-show="businessForm.companyNumber.$dirty && businessForm.companyNumber.$invalid">
+          <span style="color:red" ng-show="businessForm.companyNumber.$error.required">Company Number is required.</span>
+        </span>
+        <br/>
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="country" placeholder="country" value="" ng-model="company.country" required />
+        <span ng-show="businessForm.country.$dirty && businessForm.country.$invalid">
+          <span style="color:red" ng-show="businessForm.country.$error.required">Country is required.</span>
+        </span>
+        <br/>
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="industry" placeholder="industry" value="" ng-model="company.industry" required />
+        <span ng-show="businessForm.industry.$dirty && businessForm.industry.$invalid">
+          <span style="color:red" ng-show="businessForm.industry.$error.required">Industry is required.</span>
+        </span>
+        <br />
+      </div>
+      <div ng-if="companyStep==2">
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="firstName" placeholder="First Name" value="" ng-model="company.firstName" required />
+        <span ng-show="businessForm.firstName.$dirty && businessForm.firstName.$invalid">
+          <span style="color:red" ng-show="businessForm.firstName.$error.required">First Name is required.</span>
+        </span>
+        <br/>
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="lastName" placeholder="Last Name" value="" ng-model="company.lastName" required />
+        <span ng-show="businessForm.lastName.$dirty && businessForm.lastName.$invalid">
+          <span style="color:red" ng-show="businessForm.lastName.$error.required">Last Name is required.</span>
+        </span>
+        <br/>
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="position" placeholder="position" value="" ng-model="company.position" required />
+        <span ng-show="businessForm.position.$dirty && businessForm.position.$invalid">
+          <span style="color:red" ng-show="businessForm.position.$error.required">Position is required.</span>
+        </span>
+        <br/>
+      </div>
+      <div ng-if="companyStep==3">
+        <i class="fa fa-envelope"></i>
+        <input type="text" name="username" placeholder="username" value="" ng-model="company.username" required />
+        <span ng-show="businessForm.firstName.$dirty && businessForm.username.$invalid">
+          <span style="color:red" ng-show="businessForm.username.$error.required">Username is required.</span>
+        </span>
+        <br/>
+        <i class="fa fa-envelope"></i>
+        <input type="email" name="company_email" placeholder="company email" value="" ng-model="company.company_email" required />
+        <span ng-show="businessForm.company_email.$dirty && businessForm.company_email.$invalid">
+        <span style="color:red" ng-show="businessForm.company_email.$error.required">Email is required.</span>
+        <span style="color:red" ng-show="businessForm.company_email.$error.email">Invalid email address.</span>
+      </span>
+        <br/>
+        <i class="fa fa-lock"></i>
+        <input type="password" name="company_password" id="company_password" placeholder="Password" ng-model="company.company_password" required />
+        <span style="color:red" ng-show="businessForm.company_password.$dirty && businessForm.company_password.$invalid && businessForm.company_password.$error.required">Password is required.</span>
+        <br/>
+        <i class="fa fa-lock"></i>
+        <input type="password" placeholder="confirm password" name="company_confirm_password" id="company_confirm_password" ng-model="company.company_confirm_password" required nx-equal="company.company_password" />
+      <span ng-show="businessForm.company_confirm_password.$dirty && businessForm.company_confirm_password.$invalid">
+        <span style="color:red" ng-show="businessForm.company_confirm_password.$error.required">Confirm password is required.</span>
+        <span style="color:red" ng-show="businessForm.company_confirm_password.$error.nxEqual" >Passwords do not match.</span>
+      </span>
+        <br/>
+      </div>
+
+      <input ng-if="companyStep <=2" type="submit" value="Next" name="next" ng-click="nextStep(businessForm.$valid)" />
+      <input ng-if="companyStep ==3" type="submit" value="Submit" name="submit" />
+      <input ng-if="companyStep > 1" type="submit" value="Back" name="back" ng-click="backStep()" />
+    </form>
+  </div>
+</div>

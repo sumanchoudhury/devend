@@ -1,0 +1,105 @@
+<!--Endorsements list left panel-->
+<div class="col-md-3">
+  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+  <div class="row">
+    <div class="col-md-4"><a href="javascript:void(0)" ng-click="openEndorsementSentTab()" ng-class="{active: mainTabs.endorsements.buttons.list.buttons.sent.active == true}" class="btn btn-sm btn-success">Sent</a></div>
+    <div class="col-md-4"><a href="javascript:void(0)" ng-click="openEndorsementDraftTab()" ng-class="{active: mainTabs.endorsements.buttons.list.buttons.draft.active == true}" class="btn btn-sm btn-success">Draft</a></div>
+    <div class="col-md-4"><a href="javascript:void(0)" ng-click="openEndorsementReceivedTab()" ng-class="{active: mainTabs.endorsements.buttons.list.buttons.received.active == true}" class="btn btn-sm btn-success">Received</a></div>
+  </div>
+  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+  <div class="row">
+    <div ng-class="col-md-12">
+      <input type="text" class="form-control"  ng-model="endorsementSearch" placeholder="Search Name">
+    </div>
+  </div>
+  <div class="row" ng-if="mainTabs.endorsements.buttons.list.buttons.received.active == true">
+    <div ng-class="col-md-12">
+      <select class="form-control" ng-model="profileFilter.profile" ng-options="profile.profileName for profile in profiles" placeholder="Search Profile"><option value="">Select Profile</option></select>
+    </div>
+  </div>
+  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+  <div class="row" ng-if="mainTabs.endorsements.buttons.list.buttons.sent.active == true">
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in endorsementData.sentEndorsements  | filter:endorsementSearch |filterRequestStatus:filterRequestStatus track by item.id" ng-click="selectEndorsement(item)" ng-class="{active: item.id == endorsementData.endorsement.id}">
+        <p>
+          <img class="img-responsive" ng-src="{{item.endorsement.userDetail.thumbImage}}" ng-if="item.endorsement.userDetail.thumbImage != undefined">
+          <span>{{item.endorsement.userDetail.firstName}} {{item.endorsement.userDetail.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+        </p>
+        <p>
+          <span>Questions</span> <span class="badge" ng-if="item.questions.length > 0">{{item.numQuestions}}</span>
+          <span class="badge" ng-if="item.questions.length == 0">0</span>
+        </p>
+      </li>
+
+    </ul>
+  </div>
+  <div class="row" ng-if="mainTabs.endorsements.buttons.list.buttons.draft.active == true">
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in endorsementData.draftEndorsements  | filter:endorsementSearch  |filterRequestStatus:filterRequestStatus track by item.id" ng-click="selectEndorsement(item)" ng-class="{active: item.id == endorsementData.endorsement.id}">
+        <p>
+          <img class="img-responsive" ng-src="{{item.endorsement.userDetail.thumbImage}}" ng-if="item.endorsement.userDetail.thumbImage != undefined">
+          <span>{{item.endorsement.userDetail.firstName}} {{item.endorsement.userDetail.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+        </p>
+        <p>
+          <span>Modified <span am-time-ago="item.modified"></span></span>
+        </p>
+      </li>
+
+    </ul>
+  </div>
+  <div class="row" ng-if="mainTabs.endorsements.buttons.list.buttons.received.active == true">
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in endorsementData.receivedEndorsements | filter:endorsementSearch | filterEndorsementByProfile:profileFilter track by item.id" ng-click="selectEndorsement(item)" ng-class="{active: item.id == endorsementData.endorsement.id}">
+        <p>
+          <img class="img-responsive" ng-src="{{item.userDetail.thumbImage}}" ng-if="item.userDetail.thumbImage != undefined">
+          <span>{{item.userDetail.firstName}} {{item.userDetail.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+        </p>
+        <p>
+          <span ng-if="item.endorsets == 0 || item.endorsets == undefined">
+            <a href="javascript:void(0)" ng-click="showAddToEndorsetForm(item)">Add to Endorset</a>
+          </span>
+          <span ng-if="item.endorsets != undefined">
+            <a href="javascript:void(0)" mwl-confirm on-confirm="removeFromEndorset(item)" confirm-button-type="danger" cancel-button-type="default" message="Are you sure you want to remove it from Endorset?" title="Remove Endorsement From Endorset" confirm-text="Yes" cancel-text="No" placement="bottom">Remove</a>
+          </span>
+        </p>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<div class="col-md-1">&nbsp;</div>
+
+<!--Endorsements list right panel-->
+<div class="col-md-8">
+  <div class="row" ng-if="mainTabs.endorsements.buttons.list.active == true">
+    <div class="col-md-12" ng-if="endorsementData.endorsement != undefined || endorsementData.endorsement != null">
+      <div class="alert alert-success" ng-if="successMsg != ''">{{successMsg}}</div>
+      <div class="alert alert-danger" ng-if="errorMsg == true">
+        <div ng-repeat="errorItems in errors track by $index">
+          <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+        </div>
+      </div>
+      <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+      <div ng-if="mainTabs.endorsements.buttons.list.buttons.sent.active == true">
+        <div class="row"><div class="col-sm-12"><h3>Endorsements sent</h3></div></div>
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <dashboard-endorsemt></dashboard-endorsemt>
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <div class="row" ng-if="user.id == endorsementData.endorsement.userDetail.id">
+          <question-answer></question-answer>
+        </div>
+      </div>
+      <div ng-if="mainTabs.endorsements.buttons.list.buttons.draft.active == true">
+        <dashboard-endorsemts-list-draft></dashboard-endorsemts-list-draft>
+
+      </div>
+      <div ng-if="mainTabs.endorsements.buttons.list.buttons.received.active == true">
+        <add-endorsement-to-endorset ng-if="isAddEndorsement == true"></add-endorsement-to-endorset>
+        <div class="row"><div class="col-sm-12"><h3>Endorsements received ({{endorsementData.endorsement.userProfile.profileName}})</h3></div></div>
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <dashboard-endorsemt></dashboard-endorsemt>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="row">
+  <strong>{{receivedEndorsement.userDetail.firstName}} {{receivedEndorsement.userDetail.lastName}}</strong>
+  <span ng-if="receivedEndorsement.userDetail.gender != 'Female'">says you worked with him at</span>
+  <span ng-if="receivedEndorsement.userDetail.gender == 'Female'">says you worked with her at</span>
+</div>
+<div class="row" ng-repeat="company in receivedEndorsement.endorsementCompanies track by company.id">
+  <div class="col-md-12">
+    <div class="row">
+      <strong>{{company.companyName}}</strong> in <strong>{{company.city}}</strong>, <strong>{{company.country}}</strong> from {{company.startDate | date:'dd/MM/yyyy'}} to {{company.endDate | date:'dd/MM/yyyy'}}
+      as <strong>{{receivedEndorsement.jobTitle}}</strong> - <strong>First Level Management</strong> <br>
+    </div>
+    <div class="row" ng-repeat="project in company.endorsementProjects track by project.id">
+      <p>About the <strong>"{{project.projectName}}"</strong> at <strong>{{company.companyName}}</strong>
+        <span ng-if="receivedEndorsement.userDetail.gender != 'Female'"> he says</span>
+        <span ng-if="receivedEndorsement.userDetail.gender == 'Female'"> she says</span>:
+      </p>
+      <p>{{project.shortDescription}}</p>
+    </div>
+  </div>
+
+
+</div>
+<div class="row">
+  <p><strong><span ng-if="receivedEndorsement.userDetail.gender != 'Female'"> He</span>
+    <span ng-if="receivedEndorsement.userDetail.gender == 'Female'"> She</span> asks to rate the following skills:</strong></p>
+  <p ng-repeat="skill in receivedEndorsement.skills.split(',') track by $index">
+    <span><strong>{{skill}}</strong></span>
+  </p>
+</div>
+<div class="row">
+  <p><strong><span ng-if="receivedEndorsement.userDetail.gender != 'Female'"> He</span>
+    <span ng-if="receivedEndorsement.userDetail.gender == 'Female'"> She</span> thinks to deserve your endorsement because:</strong></p>
+  <p><strong>"{{receivedEndorsement.why}}"</strong></p>
+</div>

@@ -1,0 +1,63 @@
+{
+  "name": "notification",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string",
+      "required": true
+    },
+    "modelId": {
+      "type": "string",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "userDetailId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "createdBy": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "isViewed": {
+      "type": "boolean"
+    },
+    "type": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "createdByUser": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "createdBy"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

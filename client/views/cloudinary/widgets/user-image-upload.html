@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-3">
+    <!--div class="button" ngf-select ng-model="files">Upload using model $watch</div-->
+    <div class="button btn btn-success" ngf-select ngf-change="upload($files)">Select an image</div>
+    <br>
+    or
+    <div ngf-drop ng-model="files" class="drop-box"
+         ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+         ngf-accept="'image/*'">Drop Image here</div>
+    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+  </div>
+  <div class="col-md-9">
+    Image preview: <img ngf-src="files[0]" height="100" width="100" ngf-default-src="{{user.fullImage}}" ngf-accept="'image/*'">
+  </div>
+
+</div>

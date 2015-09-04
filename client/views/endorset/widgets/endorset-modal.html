@@ -1,0 +1,19 @@
+<script type="text/ng-template" id="myEndorsementModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Endorsement by {{endorsementData.endorserEndorsement.userDetail.firstName}} {{endorsementData.endorserEndorsement.userDetail.lastName}}</h3>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+    <div class="alert alert-danger" ng-show="errorMsg">
+      <div ng-repeat="errorItems in errors track by $index">
+        <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+      </div>
+    </div>
+    <endorsement></endorsement>
+    <question-answer></question-answer>
+  </div>
+  <div class="modal-footer">
+    <button ng-if="isCompanyAdmin == true || isCompanyUser == true" type="button" class="btn btn-success" ng-click="postHrFeedback(endorsementData)">Send</button>
+    <button class="btn btn-warning" ng-click="cancel()">Close</button>
+  </div>
+</script>

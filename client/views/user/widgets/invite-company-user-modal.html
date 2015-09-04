@@ -1,0 +1,53 @@
+<script type="text/ng-template" id="displayUserName.html">
+  <a>
+    <img class="img-responsive" ng-src="{{match.model.thumbImage}}" ng-if="match.model.thumbImage != undefined">
+    <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>, {{match.model.city}}
+  </a>
+</script>
+<!--Invite Users by Email Modal Template-->
+<script type="text/ng-template" id="InviteUserModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Invite Users by Email</h3>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+    <div class="alert alert-danger" ng-show="errorMsg">
+      <div ng-repeat="errorItems in errors track by $index">
+        <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+      </div>
+    </div>
+    <form name="inviteForm" novalidate>
+      <div class="row">
+        <div class="form-group">
+          <input type="text" autocomplete="off" id="search" name="search"  ng-model="companyUser.search" placeholder="Search" class="form-control input-md"
+                 typeahead="user as user.displayName for user in users | filter:{displayName:$viewValue} | limitTo:8"
+                 typeahead-on-select="setUserData($item, $model, $label)" typeahead-loading="loading" typeahead-min-length="2" typeahead-template-url="displayUserName.html" >
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <input type="text" autocomplete="off" id="firstName" name="firstName"  ng-model="companyUser.firstName" placeholder="First Name" class="form-control input-md" required="">
+          <span style="color:red" ng-show="inviteForm.firstName.$dirty && inviteForm.firstName.$invalid && inviteForm.firstName.$error.required" class="help-inline">First name is required</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <input id="lastName" name="lastName" ng-model="companyUser.lastName" placeholder="Last Name" class="form-control input-md" required="" type="text">
+          <span style="color:red" ng-show="inviteForm.lastName.$dirty && inviteForm.lastName.$invalid && inviteForm.lastName.$error.required" class="help-inline">Last name is required</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <input id="email" name="email" ng-model="companyUser.email" placeholder="Your team member's email" class="form-control input-md" required="" type="email">
+          <span style="color:red" ng-show="inviteForm.email.$dirty && inviteForm.email.$invalid && inviteForm.email.$error.required" class="help-inline">Email is required</span>
+          <span style="color:red" ng-show="inviteForm.email.$error.email">Invalid email address.</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" ng-click="sendInviteToEmail(inviteForm)" >Send</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+<!--Invite Users by Email Modal Template end-->

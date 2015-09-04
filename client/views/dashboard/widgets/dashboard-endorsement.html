@@ -1,0 +1,74 @@
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row-fluid">
+          <div class="span6">
+            <div class="pull-right">
+              <p>
+                <img class="img-responsive" ng-src="{{endorsementData.endorsement.endorsement.userDetail.fullImage}}" ng-if="endorsementData.endorsement.endorsement.userDetail.fullImage != undefined">
+              </p>
+            </div>
+          </div>
+          <div class="span6">
+            <p>
+              <strong>{{endorsementData.endorsement.endorsement.firstName}} {{endorsementData.endorsement.endorsement.userDetail.lastName}}</strong> was
+              <strong>{{endorsementData.endorsement.endorsement.userDetail.firstName}}</strong>'s
+              {{endorsementData.endorsement.endorsement.jobTitle}} at
+            <div class="row" ng-repeat="company in endorsementData.endorsement.endorsement.endorsementCompanies track by company.id">
+              <div class="col-md-12">
+                <strong>{{company.companyName}}</strong> in <strong>{{company.city}}</strong>, <strong>{{company.country}}</strong> from {{company.startDate | date:'dd/MM/yyyy'}} to {{company.endDate | date:'dd/MM/yyyy'}}
+              </div>
+            </div>
+            </p>
+            <p>Endorsement Score: <span class="badge">{{endorsementData.endorsement.avgEndorsetScore}}</span></p>
+            <p>Endorser Reputation: <span class="badge">9.90</span></p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Video coming soon!</h4>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row"><div class="col-sm-12">&nbsp;</div></div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>{{endorsementData.endorsement.endorsement.firstName}} Endorsed {{endorsementData.endorsement.endorsement.userDetail.firstName}} for:</p>
+        <p ng-repeat="(skill, skillScore) in endorsementData.endorsement.skillScores">
+          {{skill}}: <span class="badge">{{skillScore}}</span>
+        </p>
+        <p ng-repeat="company in endorsementData.endorsement.endorsement.endorsementCompanies track by company.id">
+          <span ng-repeat="project in company.endorsementProjects track by project.id">
+            {{project.projectName}}: <span class="badge">{{endorsementData.endorsement.projectScores[project.id]}}</span>
+          </span>
+
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <blockquote><p>"{{endorsementData.endorsement.leadQuote}}"</p><p><small>{{endorsementData.endorsement.endorsement.firstName}} {{endorsementData.endorsement.endorsement.lastName}}</small></p></blockquote>
+      </div>
+    </div>
+  </div>
+</div>

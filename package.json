@@ -1,0 +1,57 @@
+{
+  "name": "endorset",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "scripts": {
+    "pretest": "jshint ."
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "2.1.x"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "body-parser": "^1.10.0",
+    "cors": "^2.5.2",
+    "compression": "^1.0.3",
+    "errorhandler": "^1.1.1",
+    "loopback": "^2.8.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-storage": "~1.0.5",
+    "loopback-datasource-juggler": "^2.7.0",
+    "serve-favicon": "^2.0.1",
+    "loopback-connector-mysql": "~2.1.1",
+    "loopback-connector-mongodb": "~1.11.1",
+    "loopback-component-cloudinary": "~0.1.1",
+    "cloudinary": "~1.2.1",
+    "fs-extra": "~0.22.1",
+    "formidable": "~1.0.17",
+    "browserify": "~10.2.6",
+    "socket.io": "~1.3.6",
+    "socketio-auth": "0.0.3",
+    "moment": "~2.10.3"
+  },
+  "optionalDependencies": {
+    "loopback-explorer": "^1.1.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-loopback-sdk-angular": "^0.1.3",
+    "gulp-rename": "^1.2.2",
+    "jshint": "^2.5.6"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "description": "endorset",
+  "bundleDependencies": [
+    "compression",
+    "errorhandler",
+    "loopback",
+    "loopback-boot",
+    "loopback-datasource-juggler",
+    "loopback-explorer",
+    "serve-favicon"
+  ]
+}

@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-12">
+    <form name="identityForm" ng-submit="save(identityForm.$valid)" novalidate>
+      <fieldset>
+        <legend>Identity</legend>
+
+          <div class="form-group">
+            <label class="col-md-4">First Name</label><div class="col-md-8">
+            <input type="text" class="form-control" id="firstName" name="firstName" ng-model="user.firstName" placeholder="First name" required />
+            <span style="color:red" ng-show="identityForm.firstName.$dirty && identityForm.firstName.$invalid && identityForm.firstName.$error.required" class="help-inline">First name is required</span></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Last Name</label><div class="col-md-8">
+            <input type="text" class="form-control" id="lastName" name="lastName" ng-model="user.lastName" placeholder="Last name" required />
+            <span style="color:red" ng-show="identityForm.lastName.$dirty && identityForm.lastName.$invalid && identityForm.lastName.$error.required" class="help-inline">Last name is required</span></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Male/Female</label>
+            <div class="col-md-8">
+              <select id="gender" class="form-control" name="gender" ng-model="user.gender" required>
+                <option value="Male" ng-selected="user.gender == 'Male'">Male</option>
+                <option value="Female" ng-selected="user.gender == 'Female'">Female</option>
+              </select>
+              <span style="color:red" ng-show="identityForm.gender.$dirty && identityForm.gender.$invalid && identityForm.gender.$error.required" class="help-inline">Male/Female is required</span>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Date Of Birth</label><div class="col-md-5">
+            <input type="text" id="dob" class="form-control" name="dob" ng-model="user.dob" placeholder="Date of birth" datepicker-popup="{{dateFormat}}" close-text="Close" is-open="openDobDate" /></div>
+            <div class="col-md-3">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="openDate($event, 'openDobDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+            <span style="color:red" ng-show="identityForm.dob.$dirty && identityForm.dob.$invalid && identityForm.dob.$error.required" class="help-inline">Date of birth is required</span>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Street address1</label><div class="col-md-8">
+            <input type="text" class="form-control" id="address" name="address" ng-model="user.address" placeholder="Street address1" />
+            <span style="color:red" ng-show="identityForm.address.$dirty && identityForm.address.$invalid && identityForm.address.$error.required" class="help-inline">Street address1 is required</span></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Street address2</label><div class="col-md-8">
+            <input type="text" class="form-control" id="address2" name="address2" ng-model="user.address2" placeholder="Street address2" /></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">City</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="city" name="country" ng-model="user.city" placeholder="City" />
+              <span style="color:red" ng-show="identityForm.city.$dirty && identityForm.city.$invalid && identityForm.city.$error.required" class="help-inline">City is required</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Postal Code</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="postalCode" name="postalCode" ng-model="user.postalCode" placeholder="Postal Code" />
+              <span style="color:red" ng-show="identityForm.postalCode.$dirty && identityForm.postalCode.$invalid && identityForm.postalCode.$error.required" class="help-inline">Postal Code is required</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Country</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="country" name="country" ng-model="user.country" placeholder="Country" />
+              <span style="color:red" ng-show="identityForm.country.$dirty && identityForm.country.$invalid && identityForm.country.$error.required" class="help-inline">Country is required</span>
+            </div>
+          </div>
+      </fieldset>
+
+      <div class="actions">
+        <label></label>
+        <button class="btn btn-warning">{{buttonText}}</button>
+      </div>
+    </form>
+  </div>
+</div>

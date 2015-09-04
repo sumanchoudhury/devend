@@ -1,0 +1,85 @@
+{
+  "name": "endorsementSkill",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "endorsementScore": {
+      "type": "number",
+      "required": true
+    },
+    "quote": {
+      "type": "string",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "skillId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorsementProjectId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorsementId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorserId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "skillName": {
+      "type": "string"
+    },
+    "userProfileId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "skill": {
+      "type": "belongsTo",
+      "model": "skill",
+      "foreignKey": "skillId"
+    },
+    "endorsementProject": {
+      "type": "belongsTo",
+      "model": "endorsementProject",
+      "foreignKey": "endorsementProjectId"
+    },
+    "endorsement": {
+      "type": "belongsTo",
+      "model": "endorsement",
+      "foreignKey": "endorsementId"
+    },
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "endorserId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

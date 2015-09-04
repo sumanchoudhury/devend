@@ -1,0 +1,71 @@
+{
+  "name": "inviteUser",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "userDetailId": {
+      "type": "number"
+    },
+    "createdBy": {
+      "type": "number",
+      "required": true
+    },
+    "status": {
+      "type": "number"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "isViewed": {
+      "type": "boolean"
+    },
+    "roleType": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "adminUser": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "createdBy"
+    },
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "assignEndorsets": {
+      "type": "hasMany",
+      "model": "assignEndorsets",
+      "foreignKey": "inviteUserId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

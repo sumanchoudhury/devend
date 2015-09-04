@@ -1,0 +1,91 @@
+<!--Man nav bar-->
+<nav class="navbar navbar-default" ng-if="currentUser.id != undefined">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#endorset-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="endorset-navbar-collapse-1"  ng-controller="UseTypeController">
+      <ul class="nav navbar-nav">
+        <li ng-show="currentUser">
+          <a ui-sref="dashboard" ng-if="currentDashboard == 'dashboard'" ui-sref-active="active">Dashboard</a>
+          <a ui-sref="companydashboard" ng-if="currentDashboard == 'companydashboard'" ui-sref-active="active">Dashboard</a>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li ng-controller="MyAccountController">
+              <a href="javascript:void(0)" ng-click="openMyAccount('lg')">Edit Account</a>
+            </li>
+
+            <li ng-if="currentUser.userTypeId == '5589c00cc05dc30300447176'" ng-controller="IdentityController">
+              <a href="javascript:void(0);" ng-click="openIdentityModal('lg')">Identity</a>
+            </li>
+            <li ng-controller="DeleteAccountController">
+              <a href="javascript:void(0);" mwl-confirm on-confirm="delete()" confirm-button-type="danger" cancel-button-type="default" message="Are you sure you want to delete?" title="Delete Account" confirm-text="Yes" cancel-text="No">Delete Account</a>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown" ng-if="currentUser.userTypeId == '5589c00cc05dc30300447176' && currentDashboard != 'companydashboard'" ng-controller="DeleteProfileController">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+          <ul class="dropdown-menu  multi-level" ng-controller="ProfileMenuController">
+            <li>
+              <a ui-sref="add-profile" ui-sref-active="active">Add Profile</a>
+            </li>
+            <li ng-repeat="profile in menuProfiles track by profile.id" class="dropdown-submenu">
+              <a href="javascript:void(0);" ng-click="changeProfile(profile)" class="dropdown-toggle" data-toggle="dropdown">{{profile.profileName}}</a>
+              <ul class="dropdown-menu">
+                <li><a href="javascript:void(0)" ng-click="askEndorsement()">Ask Endorsement</a></li>
+                <li><a href="javascript:void(0)" ng-click="openProfile('lg', profile.id)" ng-controller="EditProfileController">Edit Profile</a></li>
+                <li>
+                  <a href="javascript:void(0);" mwl-confirm on-confirm="deleteProfile(profile.id)" confirm-button-type="danger" cancel-button-type="default" message="Are you sure you want to delete?" title="Delete Profile" confirm-text="Yes" cancel-text="No">Delete Profile</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li ng-if="currentUser.userTypeId != '5589c00cc05dc30300447176' || currentDashboard == 'companydashboard'" ng-controller="InviteUserController" class="dropdown hover-open">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">My Team</a>
+          <ul class="dropdown-menu" ng-controller="MyTeamController">
+            <li><a href="javascript:void(0);" ng-click="openMyTeamModal('lg')">Team</a></li>
+            <li><a href="javascript:void(0);" ng-click="openInviteUserModal('lg')">Invite User</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown hover-open">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-bell"></i>
+            <span class="badge" ng-if="notificationCount > 0">{{notificationCount}}</span>
+          </a>
+          <ul class="dropdown-menu" ng-if="notifications.length > 0">
+            <li ng-repeat="notification in notifications track by $index" ng-if="$index < 5" ng-class="{active: notification.isViewed != true}" >
+              <a href="javascript:void(0);" ng-click="openNotification(notification)">{{notification.title}}</a> <span am-time-ago="notification.created"></span>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="javascript:void(0);" ng-click="showAllNotifications()"><strong>See All</strong></a></li>
+          </ul>
+        </li>
+        <li ng-if="currentUser.userTypeId == '5589c00cc05dc30300447176' && acceptedInvitationCount > 0" class="dropdown hover-open">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Use Type</a>
+          <ul class="dropdown-menu">
+            <li><a href="javascript:void(0);" ng-click="changeDashboardType(1)">Use as Company</a></li>
+            <li><a href="javascript:void(0);" ng-click="changeDashboardType(2)">Use as Professional</a></li>
+          </ul>
+        </li>
+        <li ng-show="currentUser" ng-controller="LogoutController">
+          <a href="javascript:void(0);" ng-click="logout()">Log out</a>
+        </li>
+      </ul>
+
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!--Man nav bar end-->

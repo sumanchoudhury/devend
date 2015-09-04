@@ -1,0 +1,36 @@
+<!-- Modal Template-->
+<script type="text/ng-template" id="acceptCompanyinvitationModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Received Invitation</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row" ng-controller="ReceivedInviteController">
+      <div class="col-md-12 invites">
+        <ul class="list-group" ng-if="invite != undefined">
+          <li class="list-group-item link">
+            <div class="row">
+              <div class="col-md-10">
+                <strong>{{invite.adminUser.firstName}} {{invite.adminUser.lastName}}</strong> @
+                <strong>{{invite.adminUser.company.companyName}}</strong>
+                <span am-time-ago="invite.created"></span>
+              </div>
+              <div class="col-md-2">
+            <span class="pull-right">
+              <a href="javascript:void(0);" class="btn btn-small btn-info" title="Accept" ng-click="acceptInvite(invite)" ng-if="invite.status != 1">
+                Accept
+              </a>
+              <span ng-if="invite.status == 1">Accepted</span>
+          </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+<!--Modal Template end-->

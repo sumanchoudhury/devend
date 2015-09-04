@@ -1,0 +1,86 @@
+{
+  "name": "hrFeedback",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "score": {
+      "type": "number"
+    },
+    "skillScores": {
+      "type": "object"
+    },
+    "projectScores": {
+      "type": "object"
+    },
+    "leadQuoteScore": {
+      "type": "number"
+    },
+    "answerScores": {
+      "type": "object"
+    },
+    "description": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "hrId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorsementId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "userDetailId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorsetId": {
+      "type": "number",
+      "index": true
+    },
+    "endorsetSentId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "hr": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "hrId"
+    },
+    "endorsement": {
+      "type": "belongsTo",
+      "model": "endorsement",
+      "foreignKey": "endorsementId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

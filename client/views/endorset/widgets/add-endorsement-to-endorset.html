@@ -1,0 +1,30 @@
+<div class="row" ng-if="addEndorsementData.endorsement != undefined">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p><h3>Add Endorsement to your Endorset</h3></p>
+        <form name="form" role="form">
+          <fieldset>
+            <div class="row">
+              <div class="form-group col-md-12">
+                <select ng-options="profile.profileName for profile in addFormProfiles track by profile.id" ng-disabled="disableElement" tabindex="1" id="profile" name="profile"
+                        ng-model="addEndorsementData.profile" placeholder="Choose Profile" class="form-control" required="">
+                  <option value="">Select Profile</option>
+
+                </select>
+                <span style="color:red" ng-show="form.profile.$dirty && form.profile.$invalid && form.profile.$error.required" class="help-inline">Profile is required</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"><button type="button" ng-disabled="disableElement" class="btn btn-success"  ng-click="addToEndorset(form.$valid)">Add to Endorset</button></div>
+
+            </div>
+
+
+          </fieldset>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

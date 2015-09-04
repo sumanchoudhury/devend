@@ -1,0 +1,32 @@
+body{
+background:#F9F9F9;
+@include container(100%);
+}
+.container{
+min-height:350px;
+margin:40px auto;
+}
+.form{
+margin:20px 0;
+}
+.labelsection {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.current{
+color: $primary-font-color;
+background:rgb(218,165,32);
+border:1px solid $input-border;
+}
+.resttab{
+color: rgb(218,165,32);
+/*background:$primary-font-color;*/
+border:1px solid $input-border;
+}
+.logo img {
+  /*width: 55%;*/
+}
+::-webkit-input-placeholder, input:-moz-placeholder {
+//@include font-style($font-style);
+font-style:italic;
+}

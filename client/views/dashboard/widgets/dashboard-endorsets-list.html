@@ -1,0 +1,51 @@
+<!--Endorsets list left panel-->
+<div class="col-md-3">
+  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+  <div class="row">
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in profiles track by item.id" ng-click="selectProfile(item)" ng-class="{active: item.id == endorset.userProfile.id}">
+        <p>
+          <span>{{item.profileName}}</span> &nbsp;&nbsp;
+          <span></span>
+        </p>
+        <p ng-if="item.endorsets.length > 0">
+          <span>ES</span> <span class="badge">{{item.endorsetScoreTotal}}</span>
+        </p>
+        <span><a href="javascript:void(0)">Send</a></span>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<div class="col-md-1">&nbsp;</div>
+
+<!--Endorsets list right panel-->
+<div class="col-md-8">
+  <div class="row" ng-if="mainTabs.endorsets.buttons.list.active == true">
+    <div class="col-md-12">
+      <div>
+        <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+        <div class="alert alert-danger" ng-show="errorMsg">
+          <div ng-repeat="errorItems in errors track by $index">
+            <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+          </div>
+        </div>
+        <div class="row"><div class="col-sm-12"><h3>My Endorset</h3></div></div>
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+
+
+        <div class="row" ng-if="endorset.userProfile.endorsets.length == 0">
+          <div class="col-md-12">No endorsets found!</div>
+        </div>
+        <div class="row" ng-if="endorset.userProfile.endorsets.length > 0">
+          <div class="col-md-12">
+            <endorset-list></endorset-list>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

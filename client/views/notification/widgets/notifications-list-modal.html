@@ -1,0 +1,38 @@
+<script type="text/ng-template" id="notificationListModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Your Notifications</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12 notifications">
+        <div class="alert alert-info" ng-if="notifications.length == 0">No notifications found!</div>
+        <ul class="list-group" ng-if="notifications.length > 0">
+          <li class="list-group-item link" ng-class="{active: notification.isViewed != true}" ng-repeat="notification in notifications track by notification.id"  ng-click="openNotification(notification)"  ng-if="notification.type != undefined">
+            <div class="row">
+              <div class="col-md-10">
+                <a href="javascript:void(0);" ng-click="openNotification(notification)">{{notification.title}}</a> <span am-time-ago="notification.created"></span>
+              </div>
+              <div class="col-md-2">
+            <span class="pull-right">
+          <a href="javascript:void(0);" title="Mark as read" ng-click="markAsRead(notification)" ng-if="notification.isViewed != true">
+            <i class="glyphicon glyphicon-check"></i> <br>
+          </a>
+          <a href="javascript:void(0);" title="Remove notification" ng-click="deleteNotification(notification)">
+            <i class="glyphicon glyphicon-remove"></i>
+          </a>
+        </span>
+              </div>
+
+            </div>
+
+
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()">Close</button>
+  </div>
+</script>

@@ -1,0 +1,37 @@
+<div class="content">
+  <div ng-controller="EndorsementListController">
+    <h2>Endorsements of {{profile.profileName}}</h2>
+
+    <hr />
+    <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+    <div class="alert alert-danger" ng-show="errorMsg">
+      <div ng-repeat="errorItems in errors track by $index">
+        <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Job Title</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="endorsement in endorsements">
+            <td>{{endorsement.firstName}}</td>
+            <td>{{endorsement.lastName}}</td>
+            <td>{{endorsement.email}}</td>
+            <td>{{endorsement.jobTitle}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

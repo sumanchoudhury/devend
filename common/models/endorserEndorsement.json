@@ -1,0 +1,94 @@
+{
+  "name": "endorserEndorsement",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "endorserId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorsementId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "userProfileId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "isDraft": {
+      "type": "boolean"
+    },
+    "acceptStatus": {
+      "type": "number"
+    },
+    "leadQuote": {
+      "type": "string"
+    },
+    "skillScores": {
+      "type": "object"
+    },
+    "skillComments": {
+      "type": "object"
+    },
+    "projectScores": {
+      "type": "object"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "endorsement": {
+      "type": "belongsTo",
+      "model": "endorsement",
+      "foreignKey": "endorsementId"
+    },
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "endorserId"
+    },
+    "userProfile": {
+      "type": "belongsTo",
+      "model": "userProfile",
+      "foreignKey": "userProfileId"
+    },
+    "questions": {
+      "type": "hasMany",
+      "model": "question",
+      "foreignKey": "endorserEndorsementId"
+    },
+    "endorsets": {
+      "type": "hasOne",
+      "model": "endorset",
+      "foreignKey": "endorserEndorsementId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "login"
+    }
+  ],
+  "methods": []
+}

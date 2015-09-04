@@ -1,0 +1,272 @@
+<toast></toast>
+<div class="row" ng-controller="CompanyUserDashboardController">
+  <div class="col-md-12">
+    <tabset>
+      <tab heading="Requests" active="mainTabs.requests.active" disable="mainTabs.requests.disabled" ng-click="openRequestTab()">
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="list-group">
+              <li class="list-group-item link" ng-repeat="item in endorsetRequests track by item.id" ng-click="selectRequest(item)" ng-class="{active: item.id == endorsetRequest.id}">
+                <p>
+                  <img class="img-responsive" ng-src="{{item.professionalUser.thumbImage}}" ng-if="item.professionalUser.thumbImage != undefined">
+                  <span>{{item.firstName}} {{item.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+                </p>
+                <p>
+                  <span ng-show="item.seenAt">Seen <span am-time-ago="item.seenAt"></span></span>  &nbsp;&nbsp;
+
+                </p>
+              </li>
+
+            </ul>
+          </div>
+          <div class="col-md-9">
+            <!--Request right panel-->
+            <div class="row" ng-if="mainTabs.requests.active == true">
+              <div class="col-md-12">
+                <div>
+                  <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+                  <div class="alert alert-danger" ng-show="errorMsg">
+                    <div ng-repeat="errorItems in errors track by $index">
+                      <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-sm-12"><h3>Endorset Request</h3></div></div>
+                  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button class="btn btn-success" ng-click="newRequest()">New Request</button>
+                    </div>
+                  </div>
+                  <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <form name="form" role="form">
+                        <fieldset>
+                          <!-- Form Name -->
+                          <div class="row">
+                            <div class="form-group col-md-6">
+                              <input ng-disabled="disableElement" tabindex="1" id="jobPosition" name="jobTitle" ng-model="endorsetRequest.jobPosition" placeholder="Job position" class="form-control input-md" required="" type="text">
+                              <span style="color:red" ng-show="form.jobPosition.$dirty && form.jobPosition.$invalid && form.jobPosition.$error.required" class="help-inline">Job position is required</span>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <input ng-disabled="disableElement" tabindex="4" id="email" name="email" ng-model="endorsetRequest.email" placeholder="Candidate's email" class="form-control input-md" required="" type="email">
+                              <span style="color:red" ng-show="form.email.$dirty && form.email.$invalid && form.email.$error.required" class="help-inline">Email is required</span>
+                              <span style="color:red" ng-show="form.email.$error.email">Invalid email address.</span>
+                            </div>
+
+
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-md-6">
+                              <input ng-disabled="disableElement" tabindex="2" id="firstName" name="firstName" ng-model="endorsetRequest.firstName" placeholder="Candidate First Name" class="form-control input-md" required="" type="text">
+                              <span style="color:red" ng-show="form.firstName.$dirty && form.firstName.$invalid && form.firstName.$error.required" class="help-inline">First name is required</span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                              <input ng-disabled="disableElement" tabindex="5" id="minEndorsementsNumber" name="level" ng-model="endorsetRequest.minEndorsementsNumber" placeholder="Minimum Endorsements Number" class="form-control input-md" required="" type="number">
+                              <span style="color:red" ng-show="form.minEndorsementsNumber.$dirty && form.minEndorsementsNumber.$invalid && form.minEndorsementsNumber.$error.required" class="help-inline">Minimum Endorsements Number is required</span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-md-6">
+                              <input ng-disabled="disableElement" tabindex="3" id="lastName" name="lastName" ng-model="endorsetRequest.lastName" placeholder="Candidate Last Name" class="form-control input-md" required="" type="text">
+                              <span style="color:red" ng-show="form.lastName.$dirty && form.lastName.$invalid && form.lastName.$error.required" class="help-inline">Last name is required</span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                              <div class="row">
+                                <div class="form-group">
+                                  <div class="col-md-9">
+                                    <input tabindex="6" ng-disabled="disableElement" id="expiryDate" is-open="expiryDate.openExpiryDate" name="expiryDate"
+                                           ng-model="endorsetRequest.expiryDate" class="form-control input-md" placeholder="Expiry Date" required="" type="text"
+                                           datepicker-popup="{{dateFormat}}" close-text="Close">
+                                    <span style="color:red" ng-show="form.expiryDate.$dirty && form.expiryDate.$invalid && form.expiryDate.$error.required" class="help-inline">Expiry date is required</span>
+                                  </div>
+                                  <div class="col-md-3">
+                          <span class="input-group-btn">
+                            <button ng-disabled="disableElement" type="button" class="btn btn-default" ng-click="openExpiryDateCalendar($event, 'openExpiryDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-10"></div><div class="col-md-2"><button type="button" ng-disabled="disableElement" class="btn btn-success"  ng-click="saveRequest(form.$valid, form)">Submit</button></div>
+
+                          </div>
+
+
+                        </fieldset>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+
+      <!--Endorsement tab-->
+      <!--tab heading="All Endorsets" active="mainTabs.endorsets.active" ng-click="openEndorsetTab()" disable="mainTabs.endorsets.disabled">
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="list-group">
+              <li class="list-group-item link" ng-repeat="item in endorsets  | filter:endorsetSearch track by item.id" ng-click="selectEndorset(item)" ng-class="{active: item.id == endorset.id}">
+                <p>
+                  <img class="img-responsive" ng-src="{{item.userDetail.thumbImage}}" ng-if="item.userDetail.thumbImage != undefined">
+                  <span>{{item.userDetail.firstName}} {{item.userDetail.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+                </p>
+                <p>
+                  <a href="javascript:void(0)" ng-click="openAssignEndorset(item, 'md')">Assign</a>
+                </p>
+              </li>
+
+            </ul>
+          </div>
+          <div class="col-md-9">
+            <div class="row" ng-if="mainTabs.endorsets.active == true && endorset.userProfile.endorsets.length > 0 && endorsementData == false">
+              <div class="col-md-12">
+                <endorset-list></endorset-list>
+
+              </div>
+            </div>
+            <p ng-if="mainTabs.endorsets.active == true && endorset.userProfile.endorsets == undefined && endorsementData == false">No endorsement found in this endorset!</p>
+
+
+          </div>
+        </div>
+      </tab-->
+
+      <!-- My open Endorsets-->
+      <tab heading="Endorsets" active="mainTabs.myendorsets.active" ng-click="openEndorsetTab()" disable="mainTabs.myendorsets.disabled">
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <form >
+              <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <select id="endorsets" class="form-control" name="endorsets" ng-model="dashboardTab.endorsets" ng-change="changeEndorsetTab()">
+                      <option value="all" selected>All</option>
+                      <option value="assigned" >Assigned to me</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" class="form-control"  ng-model="endorsetSearch" placeholder="Search professional">
+              </div>
+            </div>
+            <!--div class="row">
+              <div class="col-md-12">
+                <input type="text" class="form-control" ng-model="adminSearch" placeholder="Search @admin name">
+              </div>
+            </div-->
+            <div class="row" ng-if="dashboardTab.endorsets == 'all'"><div class="col-sm-12">&nbsp;</div></div>
+            <ul class="list-group" ng-if="dashboardTab.endorsets == 'all'">
+              <li class="list-group-item link" ng-repeat="item in endorsets | filter:endorsetSearch track by item.id" ng-click="selectEndorset(item)" ng-class="{active: item.id == endorset.id}">
+                <p>
+                  <img class="img-responsive" ng-src="{{item.userDetail.thumbImage}}" ng-if="item.userDetail.thumbImage != undefined">
+                  <span>{{item.userDetail.firstName}} {{item.userDetail.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+                </p>
+                <p>
+                  <span>Replies</span> <span class="badge" ng-show="item.numReplies">{{item.numReplies}}</span>
+                </p>
+              </li>
+
+            </ul>
+            <ul class="list-group"  ng-if="dashboardTab.endorsets == 'assigned'">
+              <li class="list-group-item link" ng-repeat="item in myEndorsets  | filter:endorsetSearch | filterCompanyAdmin:adminSearch track by item.id" ng-click="selectEndorset(item)" ng-class="{active: item.id == endorset.id}">
+                <p>
+                  <img class="img-responsive" ng-src="{{item.userDetail.thumbImage}}" ng-if="item.userDetail.thumbImage != undefined">
+                  <span>{{item.userDetail.firstName}} {{item.userDetail.lastName}}</span> &nbsp;&nbsp;<span am-time-ago="item.created"></span>
+                </p>
+                <p>
+                  <span ng-if="item.assignEndorsets.length == 0">Assigned to: Unassigned</span>
+                  <span ng-if="item.assignEndorsets.length > 0">Assigned to: </span>
+                  <span ng-repeat="assignEndorset in item.assignEndorsets" ng-if="item.assignEndorsets.length > 0">
+                    {{assignEndorset.inviteUser.firstName}}  {{assignEndorset.inviteUser.lastName}} <a href="javascript:void(0);" mwl-confirm on-confirm="unAssign(assignEndorset)" confirm-button-type="danger" cancel-button-type="default" message="Are you sure you want to un-assign?" title="UnAssign" confirm-text="Yes" cancel-text="No">X</a>,
+                  </span>
+                  <input type="text" autocomplete="off" id="assignSearch" name="assignSearch"  ng-model="assignUserSearch[item.id]" placeholder="Search" class="form-control input-md"
+                         typeahead="user as user.firstName + ' '+ user.lastName for user in getTeamMembers($viewValue, item) | limitTo:8"
+                         typeahead-on-select="assignUserToEndorset($item, $model, $label, item)" typeahead-loading="loading" typeahead-min-length="2" typeahead-template-url="displayUserName1.html" >
+                  <!--a href="javascript:void(0)" ng-click="openAssignEndorset(item, 'md')">Assign</a-->
+                </p>
+              </li>
+
+            </ul>
+          </div>
+          <div class="col-md-9" ng-if="dashboardTab.endorsets == 'all'">
+            <!-- My OpenEndorsets right panel-->
+            <div class="row" ng-if="dashboardTab.endorsets == 'all' && mainTabs.endorsets.active == true && endorset.userProfile.endorsets.length > 0 && endorsementData == false">
+              <div class="col-md-12">
+                <endorset-list></endorset-list>
+
+              </div>
+            </div>
+            <p ng-if="mainTabs.endorsets.active == true && endorset.userProfile.endorsets == undefined && endorsementData == false">No endorsement found in this endorset!</p>
+
+
+
+        </div>
+          <div class="col-md-9" ng-if="dashboardTab.endorsets == 'assigned'">
+            <!--Endorsets right panel-->
+            <div class="row" ng-if="mainTabs.endorsets.active == true && endorset.userProfile.endorsets.length > 0 && endorsementData == false">
+              <div class="col-md-12">
+                <endorset-list></endorset-list>
+
+              </div>
+            </div>
+            <p ng-if="mainTabs.endorsets.active == true && endorset.userProfile.endorsets == undefined && endorsementData == false">No endorsement found in this endorset!</p>
+
+
+          </div>
+
+
+      </tab>
+    </tabset>
+  </div>
+</div>
+
+<endorset-modal></endorset-modal>
+<script type="text/ng-template" id="displayUserName1.html">
+  <a>
+    <img class="img-responsive" ng-src="{{match.model.userDetail.thumbImage}}" ng-if="match.model.userDetail.thumbImage != undefined">
+    <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>, {{match.model.userDetail.city}}
+  </a>
+</script>
+<!--AssignEndorset Modal Template-->
+<script type="text/ng-template" id="AssignEndorsetUserModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Assign Endorset to Member</h3>
+  </div>
+  <div class="modal-body">
+    <form name="assignEndorset" novalidate>
+      <div class="row">
+        <div class="form-group">
+          <input type="text" autocomplete="off" id="search" name="search"  ng-model="search" placeholder="Search" class="form-control input-md"
+                 typeahead="user as user.firstName + ' '+ user.lastName for user in members | filter:$viewValue | limitTo:8"
+                 typeahead-on-select="setUserData($item, $model, $label)" typeahead-loading="loading" typeahead-min-length="2" typeahead-template-url="displayUserName1.html" >
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" ng-click="assignUserToEndorset(assignEndorset)" >Assign</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+<!--AssignEndorset Modal Template end-->

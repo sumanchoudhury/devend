@@ -1,0 +1,102 @@
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.navbar .container-fluid{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.nav > li > a{
+    padding: 10px 5px;
+}
+
+.drop-box{
+    height: 100px;
+    width: 200px;
+    border: 1px solid #000011;
+    vertical-align: middle;
+
+}
+.wrapper { float: left; clear: left; display: table; table-layout: fixed; }
+img.img-responsive { display: table-cell; max-width: 100%; }
+/*
+.top-left-content {
+    width: 33.33333%;
+}
+.top-right-content{
+    width: 63.3333%
+}
+*/
+
+.hover-open:hover .dropdown-menu {
+    display: block;
+}
+
+.ng-toast__list{
+    list-style-type: none;
+}
+
+.notifications .list-group-item.active, .notifications .list-group-item.active:focus, .notifications .list-group-item.active:hover {
+    text-shadow: 0px -1px 0px #286090;
+    background-image: linear-gradient(to bottom, #c0c0c0 0px, #9d9d9d 100%);
+    border-color: #2B669A;
+}
+
+.notifications .list-group-item.active, .notifications .list-group-item.active:focus, .notifications .list-group-item.active:hover {
+    color: #FFF;
+    background-color: #c0c0c0;
+    border-color: #337AB7;
+}
+
+.list-group-item.active a{
+    color: white;
+}

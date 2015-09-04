@@ -1,0 +1,73 @@
+{
+  "name": "userProfile",
+  "plural": "profiles",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "profileName": {
+      "type": "string",
+      "required": true
+    },
+    "industry": {
+      "type": "string"
+    },
+    "industryCode": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "userDetailId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "endorsements": {
+      "type": "hasMany",
+      "model": "endorsement",
+      "foreignKey": "userProfileId"
+    },
+    "endorserEndorsements": {
+      "type": "hasMany",
+      "model": "endorserEndorsement",
+      "foreignKey": "userProfileId"
+    },
+    "endorsets": {
+      "type": "hasMany",
+      "model": "endorset",
+      "foreignKey": "userProfileId"
+    },
+    "endorsetSents": {
+      "type": "hasMany",
+      "model": "endorsetSent",
+      "foreignKey": "userProfileId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

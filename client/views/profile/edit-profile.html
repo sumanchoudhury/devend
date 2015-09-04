@@ -1,0 +1,53 @@
+<div class="content">
+  <div class="form">
+    <form name="profileForm" ng-submit="save(profileForm.$valid)" novalidate>
+      <fieldset>
+        <legend>Edit Profile</legend>
+        <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+        <div class="alert alert-danger" ng-show="errorMsg">
+          <div ng-repeat="errorItems in errors track by $index">
+            <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <input type="text" id="profileName" name="profileName" ng-model="userProfile.profileName"
+                   placeholder="Profile name" required/>
+            <span style="color:red"
+                  ng-show="profileForm.profileName.$dirty && profileForm.profileName.$invalid && profileForm.profileName.$error.required"
+                  class="help-inline">Profile name is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="text" id="industry" name="industry" ng-model="userProfile.industry" placeholder="Industry name"
+                   required/>
+            <span style="color:red"
+                  ng-show="profileForm.industry.$dirty && profileForm.industry.$invalid && profileForm.industry.$error.required"
+                  class="help-inline">Industry name is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="text" id="industryCode" name="industryCode" ng-model="userProfile.industryCode"
+                   placeholder="Industry code" required/>
+            <span style="color:red"
+                  ng-show="profileForm.industryCode.$dirty && profileForm.industryCode.$invalid && profileForm.industryCode.$error.required"
+                  class="help-inline">Industry code is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <textarea type="text" id="shortDescription" name="shortDescription"
+                      ng-model="userProfile.shortDescription"></textarea>
+          </div>
+        </div>
+      </fieldset>
+      <div class="row">
+        <button class="btn btn-success">Save</button>
+      </div>
+
+    </form>
+  </div>
+</div>

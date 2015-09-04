@@ -1,0 +1,60 @@
+<!--My Accunt Edit Modal Template-->
+<script type="text/ng-template" id="accountModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">My Account</h3>
+  </div>
+  <div class="modal-body">
+    <form name="form" novalidate>
+      <fieldset>
+        <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+        <div class="alert alert-danger" ng-show="errorMsg">
+          <div ng-repeat="errorItems in errors track by $index">
+            <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <input type="text" id="firstName" name="firstName"  ng-model="user.firstName" placeholder="First Name" class="form-control input-md" required="">
+            <span style="color:red" ng-show="form.firstName.$dirty && form.firstName.$invalid && form.firstName.$error.required" class="help-inline">First name is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input id="lastName" name="lastName" ng-model="user.lastName" placeholder="Last Name" class="form-control input-md" required="" type="text">
+            <span style="color:red" ng-show="form.lastName.$dirty && form.lastName.$invalid && form.lastName.$error.required" class="help-inline">Last name is required</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input id="email" name="email" ng-model="user.email" placeholder="Your endorser's email" class="form-control input-md" required="" type="email">
+            <span style="color:red" ng-show="form.email.$dirty && form.email.$invalid && form.email.$error.required" class="help-inline">Email is required</span>
+            <span style="color:red" ng-show="form.email.$error.email">Invalid email address.</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <input type="password" name="password" id="password" placeholder="Password" ng-model="user.password" />
+            <span style="color:red" ng-show="form.password.$dirty && form.password.$invalid && form.password.$error.required">Password is required.</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <input type="password" placeholder="confirm password" name="confirm_password" id="confirm_password" ng-model="user.confirm_password" nx-equal="user.password" />
+            <span ng-show="form.confirm_password.$dirty && form.confirm_password.$invalid">
+              <span style="color:red" ng-show="form.confirm_password.$error.required">Confirm password is required.</span>
+              <span style="color:red" ng-show="form.confirm_password.$error.nxEqual" >Passwords do not match.</span>
+            </span>
+          </div>
+        </div>
+        <user-image-upload></user-image-upload>
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" ng-click="saveMyAccount(form.$valid)" >Save</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+<!--My Accunt Edit Modal Template end-->

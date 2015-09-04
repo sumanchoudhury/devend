@@ -1,0 +1,110 @@
+<div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+<div class="alert alert-danger" ng-show="errorMsg">
+  <div ng-repeat="errorItems in errors track by $index">
+    <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+  </div>
+</div>
+<div class="row"><div class="col-sm-12"><h3>Endorsets</h3></div></div>
+<div class="row"><div class="col-sm-12">&nbsp;</div></div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row-fluid">
+          <div class="span6">
+            <div class="pull-right wrapper">
+                <img class="img-responsive" ng-src="{{endorset.userDetail.fullImage}}" ng-if="endorset.userDetail.fullImage != undefined">
+            </div>
+          </div>
+          <div class="span6">
+            <p>
+              <strong>{{endorset.userDetail.firstName}} {{endorset.userDetail.lastName}}</strong>
+            </p>
+            <p>{{endorset.userProfile.profileName}}</p>
+            <p>{{endorset.userProfile.industry}}</p>
+            <p>Job Title Level: 3</p>
+            <p>Endorset Score: <span class="badge">{{endorset.userProfile.endorsetScoreTotal}}</span></p>
+            <p>Average Endorsers Score: <span class="badge">9.90</span></p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">Video coming soon!</h4>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row"><div class="col-sm-12">&nbsp;</div></div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>More Voted Skill</p>
+        <p ng-repeat="skill in endorset.userProfile.skillScores track by $index" ng-if="$index <= 3 || isShowAllSkill == true">
+          {{skill.key}}: <span class="badge">{{skill.score}}</span>
+        </p>
+
+        <p ng-if="endorset.userProfile.projectScores.length > 0">Project Skill</p>
+        <p ng-repeat="projectScore in endorset.userProfile.projectScores track by $index" ng-if="$index <= 3 || isShowAllSkill == true">
+          {{projectScore.projectName}}: <span class="badge">{{projectScore.score}}</span>
+        </p>
+        <p ng-if="endorset.userProfile.skillScores.length > 3">
+          <button class="btn btn-success" ng-click="toggleShowAllSkill()">{{showAllText}}</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <blockquote>
+          <p>"{{endorset.userProfile.endorsets[0].leadQuote}}"</p>
+          <p>
+            <small>{{endorset.userProfile.endorsets[0].endorserEndorsement.userDetail.firstName}} {{endorset.userProfile.endorsets[0].endorserEndorsement.userDetail.lastName}}</small><br>
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row"><div class="col-sm-12">&nbsp;</div></div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div ng-repeat="endorsement in endorset.userProfile.endorsets track by endorsement.id">
+          <a href="javascript:void(0)" ng-click="openEndorserEndorsement(endorsement)">
+            <blockquote>
+              <p>"{{endorsement.endorserEndorsement.leadQuote}}"</p>
+              <p>
+                <small>{{endorsement.endorserEndorsement.userDetail.firstName}} {{endorsement.endorserEndorsement.userDetail.lastName}}</small><br>
+              </p>
+            </blockquote>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Video coming soon!
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row"><div class="col-sm-12">&nbsp;</div></div>

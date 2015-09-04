@@ -1,0 +1,102 @@
+{
+  "name": "question",
+  "plural": "questions",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "comment": {
+      "type": "string",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "type": {
+      "type": "string"
+    },
+    "hrId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorserId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "replyId": {
+      "type": "number",
+      "index": true
+    },
+    "endorserEndorsementId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorsementId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "isDraft": {
+      "type": "boolean"
+    },
+    "seenAt": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "hrDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "hrId"
+    },
+    "endorser": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "endorserId"
+    },
+    "reply": {
+      "type": "belongsTo",
+      "model": "question",
+      "foreignKey": "replyId"
+    },
+    "endorserEndorsement": {
+      "type": "belongsTo",
+      "model": "endorserEndorsement",
+      "foreignKey": "endorserEndorsementId"
+    },
+    "endorsement": {
+      "type": "belongsTo",
+      "model": "endorsement",
+      "foreignKey": "endorsementId"
+    },
+    "parentQuestion": {
+      "type": "belongsTo",
+      "model": "question",
+      "foreignKey": "replyId"
+    },
+    "questions": {
+      "type": "hasMany",
+      "model": "question",
+      "foreignKey": "replyId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

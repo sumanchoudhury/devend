@@ -1,0 +1,6 @@
+MONGO URI
+mongodb://<user>:<pass>@apollo.modulusmongo.net:27017/j8eXixym
+MONGO CONSOLE
+mongo apollo.modulusmongo.net:27017/j8eXixym -u <user> -p <pass>
+
+endorset, mithun

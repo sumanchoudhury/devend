@@ -1,0 +1,50 @@
+<div class="row" ng-controller="DashboardController">
+  <div class="col-md-12" ng-controller="MyEndorsetController">
+    <tabset>
+      <tab heading="Endorsements" active="mainTabs.endorsements.active" ng-click="openSentTab()" disable="mainTabs.endorsements.disabled">
+        <div ng-if="mainTabs.endorsements.active == true">
+          <form >
+            <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <select id="endorsement" name="endorsements" class="form-control" ng-model="dashboardTab.endorsements" ng-change="changeEndorsementsTab()">
+                    <option value="list">List</option>
+                    <option value="requests" selected>Requests</option>
+                  </select>
+                  <!--label >
+                    <input type="radio" id="openEndorsementSentTab" name="endorsement"  value="1" ng-click="openEndorsementSentTab()" /> List
+                  </label>
+                  <label >
+                    <input type="radio" id="openSentTab" name="endorsement" value="2" checked ng-click="openSentTab()" /> Request
+                  </label-->
+                </div>
+              </div>
+            </div>
+          </form>
+          <dashboard-endorsemts></dashboard-endorsemts>
+        </div>
+      </tab>
+      <tab heading="Endorsets" active="mainTabs.endorsets.active" disable="mainTabs.endorsets.disabled" ng-click="openEndorsetListTab()">
+        <div ng-if="mainTabs.endorsets.active == true">
+          <form >
+            <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <select id="endorsets" class="form-control" name="endorsets" ng-model="dashboardTab.endorsets" ng-change="changeEndorsetsTab()">
+                    <option value="list" selected>List</option>
+                    <option value="requests">Requests</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+          <dashboard-endorsets></dashboard-endorsets>
+        </div>
+      </tab>
+    </tabset>
+
+
+  </div>
+</div>

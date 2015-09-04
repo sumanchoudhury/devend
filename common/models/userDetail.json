@@ -1,0 +1,200 @@
+{
+  "name": "userDetail",
+  "plural": "userDetails",
+  "base": "User",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "dob": {
+      "type": "date"
+    },
+    "address": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "userTypeId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "thumbImage": {
+      "type": "string"
+    },
+    "fullImage": {
+      "type": "string"
+    },
+    "cloudinaryImageId": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userType": {
+      "type": "belongsTo",
+      "model": "userType",
+      "foreignKey": "userTypeId"
+    },
+    "userProfiles": {
+      "type": "hasMany",
+      "model": "userProfile",
+      "foreignKey": "userDetailId"
+    },
+    "endorsements": {
+      "type": "hasMany",
+      "model": "endorsement",
+      "foreignKey": "userDetailId"
+    },
+    "hrQuestions": {
+      "type": "hasMany",
+      "model": "question",
+      "foreignKey": "hrId"
+    },
+    "endorserQuestions": {
+      "type": "hasMany",
+      "model": "question",
+      "foreignKey": "endorserId"
+    },
+    "hrFeedbacks": {
+      "type": "hasMany",
+      "model": "hrFeedback",
+      "foreignKey": "hrId"
+    },
+    "userFeedbacks": {
+      "type": "hasMany",
+      "model": "hrFeedback",
+      "foreignKey": "userDetailId"
+    },
+    "userIdentities": {
+      "type": "hasMany",
+      "model": "userIdentity",
+      "foreignKey": "userDetailId"
+    },
+    "jobPosts": {
+      "type": "hasMany",
+      "model": "jobPost",
+      "foreignKey": "userDetailId"
+    },
+    "endorsets": {
+      "type": "hasMany",
+      "model": "endorset",
+      "foreignKey": "userDetailId"
+    },
+    "endorsetSkills": {
+      "type": "hasMany",
+      "model": "endorsetSkill",
+      "foreignKey": "userDetailId"
+    },
+    "company": {
+      "type": "hasOne",
+      "model": "company",
+      "foreignKey": "userDetailId"
+    },
+    "endorserEndorsements": {
+      "type": "hasMany",
+      "model": "endorserEndorsement",
+      "foreignKey": "endorserId"
+    },
+    "endorsementSkills": {
+      "type": "hasMany",
+      "model": "endorsementSkill",
+      "foreignKey": "endorserId"
+    },
+    "companyRequests": {
+      "type": "hasMany",
+      "model": "companyRequest",
+      "foreignKey": "userDetailId"
+    },
+    "endorsetSents": {
+      "type": "hasMany",
+      "model": "endorsetSent",
+      "foreignKey": "userDetailId"
+    },
+    "endorsetReceiveds": {
+      "type": "hasMany",
+      "model": "endorsetSent",
+      "foreignKey": "companyUserId"
+    },
+    "notifications": {
+      "type": "hasMany",
+      "model": "notification",
+      "foreignKey": "userDetailId"
+    },
+    "endorsementRequests": {
+      "type": "hasMany",
+      "model": "endorsement",
+      "foreignKey": "endorserId"
+    },
+    "invitedUsers": {
+      "type": "hasMany",
+      "model": "inviteUser",
+      "foreignKey": "createdBy"
+    },
+    "invitations": {
+      "type": "hasMany",
+      "model": "inviteUser",
+      "foreignKey": "userDetailId"
+    },
+    "assignEndorsets": {
+      "type": "hasMany",
+      "model": "assignEndorsets",
+      "foreignKey": "userDetailId"
+    },
+    "assignedEndorsets": {
+      "type": "hasMany",
+      "model": "assignEndorsets",
+      "foreignKey": "createdBy"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "login"
+    }
+  ],
+  "methods": []
+}

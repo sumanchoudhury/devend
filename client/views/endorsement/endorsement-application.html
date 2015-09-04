@@ -1,0 +1,286 @@
+<div class="content">
+  <div ng-controller="EndorsementController">
+    <h2>Endorsement Application</h2>
+
+    <hr />
+    <div class="alert alert-success" ng-show="endorsementSent">
+      <p>Great! Your applciation hs been submitted.</p>
+      <p>
+        You will receive a notification as soon as the professional accepts to become your endorser!
+      </p>
+      <p>
+        <a ui-sref="dashboard" ui-sref-active="active">Back to Dashboard</a>
+      </p>
+    </div>
+    <div class="alert alert-danger" ng-show="errorMsg">
+      <div ng-repeat="errorItems in errors track by $index">
+        <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+      </div>
+    </div>
+    <tabset ng-hide="endorsementSent">
+      <tab heading="1. Who" active="tabs.who.active" disable="tabs.who.disabled">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form name="who" role="form">
+            <fieldset>
+              <!-- Form Name -->
+              <legend>1. Who</legend>
+              <p>Who do you want asking for reference to?</p>
+              <div class="row">
+                <div class="form-group">
+                  <input id="firstName" name="firstName" ng-model="endorsement.firstName" placeholder="First Name" class="form-control input-md" required="" type="text">
+                  <span style="color:red" ng-show="who.firstName.$dirty && who.firstName.$invalid && who.firstName.$error.required" class="help-inline">First name is required</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <input id="lastName" name="lastName" ng-model="endorsement.lastName" placeholder="Last Name" class="form-control input-md" required="" type="text">
+                  <span style="color:red" ng-show="who.lastName.$dirty && who.lastName.$invalid && who.lastName.$error.required" class="help-inline">Last name is required</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <input id="email" name="email" ng-model="endorsement.email" placeholder="Your endorser's email" class="form-control input-md" required="" type="email">
+                  <span style="color:red" ng-show="who.email.$dirty && who.email.$invalid && who.email.$error.required" class="help-inline">Email is required</span>
+                  <span style="color:red" ng-show="who.email.$error.email">Invalid email address.</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <input id="jobTitle" name="jobTitle" ng-model="endorsement.jobTitle" placeholder="Your endorser's job title" class="form-control input-md" required="" type="text">
+                  <span style="color:red" ng-show="who.jobTitle.$dirty && who.jobTitle.$invalid && who.jobTitle.$error.required" class="help-inline">Job Title is required</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <input id="level" name="level" ng-model="endorsement.level" placeholder="Your endorser's level" class="form-control input-md" required="" type="number">
+                  <span style="color:red" ng-show="who.level.$dirty && who.level.$invalid && who.level.$error.required" class="help-inline">Level is required</span>
+                </div>
+              </div>
+
+              <div class="row"> <button type="button" class="btn btn-success"  ng-click="nextTab(who.$valid, tabs.where, tabs.who)">Next</button></div>
+
+
+            </fieldset>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+
+      </tab>
+      <tab heading="2. Where" active="tabs.where.active" disable="tabs.where.disabled">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form name="where" role="form">
+            <fieldset>
+              <!-- Form Name -->
+              <legend>2. Where</legend>
+              <p>Where did you worked together?</p>
+              <div class="row">
+                <div class="form-group">
+                  <input id="companyName" name="companyName" ng-model="company.companyName" placeholder="Company Name" class="form-control input-md" required="" type="text">
+
+                  <span style="color:red" ng-show="where.companyName.$dirty && where.companyName.$invalid && where.companyName.$error.required" class="help-inline">Company name is required</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <input id="country" name="country" ng-model="company.country" placeholder="Country" class="form-control input-md" required="" type="text">
+                  <span style="color:red" ng-show="where.country.$dirty && where.country.$invalid && where.country.$error.required" class="help-inline">Country is required</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <input id="city" name="city" ng-model="company.city" placeholder="City" class="form-control input-md" required="" type="text">
+                  <span style="color:red" ng-show="where.city.$dirty && where.city.$invalid && where.city.$error.required" class="help-inline">City is required</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <a href="javascript:void(0);" class="btn btn-success" ng-click="addNewCompany(where.$valid, company); where.$setPristine();">Add Company</a>
+                <button type="button" class="btn btn-success"  ng-click="nextTab(true, tabs.who, tabs.where)">Back</button>
+                <button type="button" class="btn btn-success"  ng-click="nextTab(where.$valid, tabs.when, tabs.where)">Next</button>
+              </div>
+
+              <div class="row"  ng-repeat="company in companies track by $index">
+                <div class="col-md-7">
+                  <h3>{{company.companyName}}</h3>
+                  <p>{{company.country}}, {{company.city}}</p>
+                </div>
+                <div class="col-md-5"><a href="javascript:void(0);" ng-click="removeCompany($index)">Remove</a></div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+      </tab>
+      <tab heading="3. When" active="tabs.when.active" disable="tabs.when.disabled">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form name="when" role="form">
+            <fieldset>
+              <!-- Form Name -->
+              <legend>3. When</legend>
+              <p>When did you work together?</p>
+              <div class="row" ng-repeat="company in companies track by $index">
+                <div class="col-md-12">
+                  <p>
+                    <strong>{{company.companyName}}</strong>
+                  </p>
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-12">Start</label>
+                      <div class="col-md-9">
+                        <input id="startDate{{$index}}" is-open="company.openStartDate" name="startDate{{$index}}" ng-model="company.startDate" class="form-control input-md" required="" type="text" datepicker-popup="{{dateFormat}}" close-text="Close">
+
+                        <span style="color:red" ng-show="when.startDate.$dirty && when.startDate.$invalid && when.startDate.$error.required" class="help-inline">Start date is required</span>
+                      </div>
+                      <div class="col-md-3">
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="openDate($event, 'openStartDate', $index)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-12">End</label>
+                      <div class="col-md-9">
+                        <input id="endDate{{$index}}" is-open="company.openEndDate" name="endDate{{$index}}" ng-model="company.endDate" class="form-control input-md" required="" min type="text" datepicker-popup="{{dateFormat}}" close-text="Close">
+                        <span style="color:red" ng-show="when.endDate.$dirty && when.endDate.$invalid && when.endDate.$error.required" class="help-inline">End date is required</span>
+                      </div>
+                      <div class="col-md-3">
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="openDate($event, 'openEndDate', $index)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <button type="button" class="btn btn-success"  ng-click="nextTab(true, tabs.where, tabs.when)">Back</button>
+                <button type="button" class="btn btn-success"  ng-click="nextTab(when.$valid, tabs.what, tabs.when)">Next</button>
+              </div>
+
+
+            </fieldset>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+      </tab>
+      <tab heading="4. What" active="tabs.what.active" disable="tabs.what.disabled">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form name="what" role="form">
+            <fieldset>
+              <!-- Form Name -->
+              <legend>4. What</legend>
+              <p>What project did you work on?</p>
+              <div class="row" ng-repeat="project in projects track by $index">
+                <div class="col-md-12">
+                  <p>
+                    <strong>Project {{$index + 1}}</strong>
+                  </p>
+                  <div class="row">
+                    <div class="form-group">
+                      <select id="endorsementCompanyId" name="endorsementCompanyId" ng-options="company.companyName for company in companies track by company.companyName" ng-model="project.endorsementCompanyId" class="form-control"></select>
+                      <span style="color:red" ng-show="what.endorsementCompanyId.$dirty && what.endorsementCompanyId.$invalid && what.endorsementCompanyId.$error.required" class="help-inline">Select company</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <input id="projectName" name="projectName" ng-model="project.projectName" placeholder="Project Name" class="form-control input-md" required="" type="text">
+                      <span style="color:red" ng-show="what.projectName.$dirty && what.projectName.$invalid && what.projectName.$error.required" class="help-inline">Project name is required</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <textarea id="shortDescription" name="shortDescription" ng-model="project.shortDescription" placeholder="Short project description" class="form-control input-md"></textarea>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <a href="javascript:void(0);" class="btn btn-success" ng-click="addNewProject();">Add New Project</a>
+                <button type="button" class="btn btn-success"  ng-click="nextTab(true, tabs.when, tabs.what)">Back</button>
+                <button type="button" class="btn btn-success"  ng-click="nextTab(what.$valid, tabs.which, tabs.what)">Next</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+      </tab>
+      <tab heading="5. Which" active="tabs.which.active" disable="tabs.which.disabled">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form name="which" role="form">
+            <fieldset>
+              <!-- Form Name -->
+              <legend>5. Which</legend>
+              <p>Which skills would you like to be evaluated for?</p>
+              <div class="row">
+                <div class="form-group">
+                  <input id="skills" name="skills" ng-model="endorsement.skills" placeholder="PHP, JavaScript, css, HTML5" class="form-control input-md" required="" type="text">
+                  <span style="color:red" ng-show="which.skills.$dirty && which.skills.$invalid && which.skills.$error.required" class="help-inline">Skills are required</span>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <button type="button" class="btn btn-success"  ng-click="nextTab(true, tabs.what, tabs.which)">Back</button>
+                <button type="button" class="btn btn-success"  ng-click="nextTab(which.$valid, tabs.why, tabs.which)">Next</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+      </tab>
+      <tab heading="6. Why" active="tabs.why.active" disable="tabs.why.disabled">
+
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form name="why" role="form">
+            <fieldset>
+              <!-- Form Name -->
+              <legend>6. Why</legend>
+              <p>Why you deserve this endorsement?</p>
+              <div class="row">
+                <div class="form-group">
+                  <input id="why" name="why" ng-model="endorsement.why" placeholder="Be honest with yourself!" class="form-control input-md" required="" type="text">
+                  <span style="color:red" ng-show="why.why.$dirty && why.why.$invalid && why.why.$error.required" class="help-inline">Why are required</span>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <button type="button" class="btn btn-success"  ng-click="nextTab(true, tabs.which, tabs.why)">Back</button>
+                <button type="button" class="btn btn-success"  ng-click="confirmEndorsement(why.$valid)">Submit</button>
+              </div>
+            </fieldset>
+          </form>
+          <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+              <h3 class="modal-title">Confirm</h3>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to submit?
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="ok()">Yes</button>
+              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+          </script>
+        </div>
+        <div class="col-md-3"></div>
+      </tab>
+    </tabset>
+
+
+  </div>
+</div>

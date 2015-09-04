@@ -1,0 +1,81 @@
+{
+  "name": "companyRequest",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "jobPosition": {
+      "type": "string",
+      "required": false
+    },
+    "minEndorsementsNumber": {
+      "type": "number"
+    },
+    "expiryDate": {
+      "type": "date"
+    },
+    "seenAt": {
+      "type": "date"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "userDetailId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "status": {
+      "type": "number"
+    },
+    "professionalUserId": {
+      "type": "number",
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "endorsetSents": {
+      "type": "hasMany",
+      "model": "endorsetSent",
+      "foreignKey": "companyRequestId"
+    },
+    "professionalUser": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "professionalUserId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

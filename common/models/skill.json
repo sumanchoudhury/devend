@@ -1,0 +1,43 @@
+{
+  "name": "skill",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "endorsementSkills": {
+      "type": "hasMany",
+      "model": "endorsementSkill",
+      "foreignKey": "skillId"
+    },
+    "endorsetSkills": {
+      "type": "hasMany",
+      "model": "endorsetSkill",
+      "foreignKey": "skillId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

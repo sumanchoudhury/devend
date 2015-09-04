@@ -1,0 +1,25 @@
+<div class="row" ng-controller="ReceivedInviteController">
+  <div class="col-md-12 invites">
+    <h4>Received Invitations </h4>
+    <div class="alert alert-info" ng-if="invites.length == 0">No invites found!</div>
+    <ul class="list-group" ng-if="invites.length > 0">
+      <li class="list-group-item link" ng-repeat="invite in invites track by invite.id">
+        <div class="row">
+          <div class="col-md-10">
+            <strong>{{invite.adminUser.firstName}} {{invite.adminUser.lastName}}</strong> @
+            <strong>{{invite.adminUser.company.companyName}}</strong>
+            <span am-time-ago="invite.created"></span>
+          </div>
+          <div class="col-md-2">
+            <span class="pull-right">
+              <a href="javascript:void(0);" class="btn btn-small btn-info" title="Accept" ng-click="acceptInvite(invite)" ng-if="invite.status != 1">
+                Accept
+              </a>
+              <span ng-if="invite.status == 1">Accepted</span>
+          </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

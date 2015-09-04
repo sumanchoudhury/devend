@@ -1,0 +1,36 @@
+{
+  "name": "userType",
+  "plural": "userTypes",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetails": {
+      "type": "hasMany",
+      "model": "userDetail",
+      "foreignKey": "userTypeId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}

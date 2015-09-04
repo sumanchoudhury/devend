@@ -1,0 +1,47 @@
+<!--Login Form-->
+<form name="form" ng-submit="login()" ng-if="currentUser.id == undefined">
+  <div class="form-group">
+    <input type="text" name="username" tabindex="1" id="username" placeholder="Your Email" ng-model="user.username" />
+    <br/>
+    <div class="labelsection">
+      <input type="checkbox" tabindex="3" value="true" ng-model="user.rememberMe">
+      Remember Me </div>
+  </div>
+  <div class="form-group">
+    <input type="password" tabindex="2" name="password" id="password" placeholder="Password" ng-model="user.password" />
+    <br/>
+    <div class="labelsection"  ng-controller="ModalForgotPasswordController">
+      <a href="javascript:void(0);" ng-click="openForgotPass('sm')">Forgot your password?</a>
+      <!--Forgot password modal-->
+      <script type="text/ng-template" id="forgotpassModalContent.html">
+        <div class="modal-header">
+          <h3 class="modal-title">Forgot Password!</h3>
+        </div>
+        <div class="modal-body">
+          <form name="forgotPass" role="form">
+            <div class="alert alert-success" ng-show="passRemindSent">{{passRemindSent}}</div>
+            <div class="alert alert-danger" ng-show="passRemindFailed">{{passRemindFailed}}</div>
+            <fieldset ng-hide="passRemindSent">
+              <!-- Form Name -->
+
+              <div class="row">
+                <div class="form-group">
+                  <input id="email" name="email" ng-model="user.email" placeholder="Your email" class="form-control input-md" required="" type="email">
+                  <span style="color:red" ng-show="forgotPass.email.$dirty && forgotPass.email.$invalid && forgotPass.email.$error.required" class="help-inline">Email is required</span>
+                  <span style="color:red" ng-show="forgotPass.email.$error.email">Invalid email address.</span>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" ng-hide="passRemindSent" class="btn btn-success" ng-click="resetPassword(forgotPass.$valid)" >Submit</button>
+          <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+      </script>
+      <!--Forgot password modal end-->
+    </div>
+  </div>
+  <div class="form-group"><input type="submit" value="Login" name="login" /></div>
+</form>
+<!--Login form end-->

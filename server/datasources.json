@@ -1,0 +1,48 @@
+{
+  "memory": {
+    "name": "memory",
+    "connector": "memory"
+  },
+  "db": {
+    "host": "ds041841.mongolab.com",
+    "port": 41841,
+    "database": "endorset",
+    "username": "endorset",
+    "password": "endorset123",
+    "name": "db",
+    "connector": "mongodb"
+  },
+  "emailDs": {
+    "name": "emailDs",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "global.tester.mitz2@gmail.com",
+          "pass": "123456789$!"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./server/storage"
+  },
+  "cloudinary": {
+    "url": "cloudinary://287336142959814:jDfyNXsUaK8xkAXHMfHtKuCyxVc@communycreation-ltd",
+    "name": "cloudinary",
+    "connector": "loopback-component-cloudinary",
+    "cloudName": "communycreation-ltd",
+    "apiKey": "287336142959814",
+    "apiSecret": "jDfyNXsUaK8xkAXHMfHtKuCyxVc"
+  }
+}

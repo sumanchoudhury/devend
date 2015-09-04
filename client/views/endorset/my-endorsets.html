@@ -1,0 +1,158 @@
+<div class="row" ng-controller="MyEndorsetController">
+  <div class="col-md-3">
+    <tabset>
+      <tab heading="My Endorsets" active="mainTabs.endorsets.active" disable="mainTabs.endorsets.disabled">
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <div class="row">
+          <ul class="list-group">
+            <li class="list-group-item link" ng-repeat="profile in profiles track by profile.id" ng-click="selectProfile(profile)">
+              <p>
+                <span>{{profile.profileName}}</span> &nbsp;&nbsp;
+                <span></span>
+              </p>
+              <p ng-if="profile.endorsets.length > 0">
+                <span>ES</span> <span class="badge">{{profile.endorsetScoreTotal}}</span>
+              </p>
+            </li>
+
+          </ul>
+        </div>
+      </tab>
+
+      <!--Requests tab-->
+      <tab heading="Requests" active="mainTabs.requests.active" ng-click="openRequestTab()" disable="mainTabs.requests.disabled">
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+        <div class="row">
+          <ul class="list-group">
+            <li class="list-group-item link" ng-repeat="endorset in endorsetRequests track by endorset.id" ng-click="selectRequest(endorsetRequest)" ng-show="endorsetRequest.userDetail">
+              <p>
+                <span>{{endorsetRequest.userDetail.firstName}} {{endorsetRequest.userDetail.lastName}}</span>
+              </p>
+              <p>
+                <span ng-show="endorsetRequest.userDetail.company.companyName"><strong>{{endorsetRequest.userDetail.company.companyName}}</strong></span>&nbsp;&nbsp;&nbsp;
+                <span><a href="javascript:void(0)" ng-click="chooseEndorset(endorsetRequest)">Send</a></span>
+              </p>
+            </li>
+
+
+          </ul>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+  <div class="col-md-1">&nbsp;</div>
+  <div class="col-md-8">
+    <!--My Endorsets right panel-->
+    <div class="row" ng-show="mainTabs.endorsets.active">
+      <div class="col-md-12">
+        <div>
+          <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+          <div class="alert alert-danger" ng-show="errorMsg">
+            <div ng-repeat="errorItems in errors track by $index">
+              <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+            </div>
+          </div>
+          <div class="row"><div class="col-sm-12"><h3>My Endorset</h3></div></div>
+          <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+
+
+          <div class="row" ng-if="endorset.userProfile.endorsets.length == 0">
+            <div class="col-md-12">No endorsets found!</div>
+          </div>
+          <div class="row" ng-if="endorset.userProfile.endorsets.length > 0">
+            <div class="col-md-12">
+              <endorset-list></endorset-list>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <!--Requests right panel-->
+    <div class="row" ng-show="mainTabs.requests.active">
+      <div class="col-md-12">
+        <div class="alert alert-success" ng-show="successMsg">{{successMsg}}</div>
+        <div class="alert alert-danger" ng-show="errorMsg">
+          <div ng-repeat="errorItems in errors track by $index">
+            <div ng-repeat="errorItem in errorItems track by $index1">{{errorItem}}</div>
+          </div>
+        </div>
+        <div class="row"><div class="col-sm-12"><h3>Endorset Request</h3></div></div>
+        <div class="row"><div class="col-sm-12">&nbsp;</div></div>
+
+        <div class="row" ng-hide="isChooseEndorset" ng-if="endorsetRequests.length == 0">
+          <div class="col-md-12">
+            You haven't receive any endorset request yet.
+          </div>
+        </div>
+        <div class="row" ng-hide="isChooseEndorset" ng-if="endorsetRequests.length > 0">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p>
+                  <strong>{{endorsetRequest.userDetail.firstName}} {{endorsetRequest.userDetail.lastName}}</strong> has sent you an Endorset Request for
+                </p>
+                <p><strong>{{endorsetRequest.jobPosition}}</strong> at <strong>{{endorsetRequest.userDetail.company.companyName}}</strong></p>
+                <p><strong>Minimum Endorsements Number: </strong></p>
+                <p>{{endorsetRequest.minEndorsementsNumber}}</p>
+                <p><strong>Expiry:</strong></p>
+                <p>{{endorsetRequest.expiryDate | date:'dd/MM/yyyy'}}</p>
+                <p>
+                  <button class="btn btn-success" ng-click="chooseEndorset(endorsetRequest)">Choose Endorset</button>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row" ng-show="isChooseEndorset">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p><h3>Send your Endorset</h3></p>
+                <form name="form" role="form">
+                  <fieldset>
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        <select  ng-options="profile.profileName for profile in profiles track by profile.id" ng-disabled="disableElement" tabindex="1" id="profile" name="profile" ng-model="endorsetSent.profile" placeholder="Choose Profile" class="form-control" required="">
+
+                        </select>
+                        <span style="color:red" ng-show="form.profile.$dirty && form.profile.$invalid && form.profile.$error.required" class="help-inline">Profile is required</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        <textarea ng-disabled="disableElement" tabindex="2" id="comments" name="comments" ng-model="endorsetSent.comments" placeholder="Write a comment" class="form-control" required=""></textarea>
+                        <span style="color:red" ng-show="form.comments.$dirty && form.comments.$invalid && form.comments.$error.required" class="help-inline">Comment is required</span>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <button type="button" ng-hide="disableElement" class="btn btn-warning"  ng-click="cancelEndorset()">Cancel</button>
+                        <button type="button" ng-show="disableElement" class="btn btn-warning"  ng-click="cancelEndorset()">Back</button>
+                      </div>
+                      <div class="col-md-4"><button type="button" ng-disabled="disableElement" class="btn btn-success"  ng-click="sendEndorset(form.$valid)">Send Endorset</button></div>
+
+                    </div>
+
+
+                  </fieldset>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<endorset-modal></endorset-modal>

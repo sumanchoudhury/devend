@@ -1,0 +1,30 @@
+<!--Endorsets Request left panel-->
+<div class="col-md-3">
+  <div class="row">
+    <ul class="list-group">
+      <li class="list-group-item link" ng-repeat="item in endorsetRequests track by item.id" ng-click="selectEndorsetRequest(item)" ng-if="item.userDetail != undefined"  ng-class="{active: item.id == endorsetRequest.id}">
+        <p>
+          <span>{{item.userDetail.firstName}} {{item.userDetail.lastName}}</span>
+        </p>
+        <p>
+          <img class="img-responsive" ng-src="{{item.userDetail.thumbImage}}" ng-if="item.userDetail.thumbImage != undefined">
+          <span ng-show="item.userDetail.company.companyName"><strong>{{item.userDetail.company.companyName}}</strong></span>&nbsp;&nbsp;&nbsp;
+          <span><a href="javascript:void(0)" ng-click="chooseEndorset(item)">Send</a></span>
+        </p>
+      </li>
+
+
+    </ul>
+  </div>
+</div>
+<div class="col-md-1">&nbsp;</div>
+<!--Endorsets Request right panel-->
+<div class="col-md-8">
+  <div class="row" ng-if="mainTabs.endorsets.buttons.requests.active == true">
+    <div class="col-md-12">
+      <endorset-request></endorset-request>
+
+
+    </div>
+  </div>
+</div>

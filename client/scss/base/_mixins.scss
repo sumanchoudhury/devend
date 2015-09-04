@@ -1,0 +1,5 @@
+@mixin font-style($font-style:italic){
+	:-webkit-input-placeholder:$font-style;
+	:-moz-placeholder:$font-style;
+	:-ms-input-placeholder:$font-style;
+}

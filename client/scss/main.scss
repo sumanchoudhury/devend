@@ -1,0 +1,92 @@
+@import "susy";
+@import "breakpoint";
+@import 'base/_variables.scss';
+@import 'base/_mixins.scss';
+@import 'base/_reset.scss';
+@import 'base/_base.scss';
+
+@import 'layout/_header.scss';
+@import 'layout/_footer.scss';
+@import 'layout/_nav.scss';
+
+@import 'modules/_blocks.scss';
+@import 'modules/_buttons.scss';
+@import 'modules/_components.scss';
+@import 'modules/_typography.scss';
+
+$susy: (
+	columns:12,
+	gutters:1/4,
+	math:fluid,
+	output:float,
+	gutter-position:split,
+);
+
+/*$widelayout: (
+	columns:24,
+	gutters:1/4,
+	math:fluid,
+	output:float,
+	gutter-position:split,
+);*/
+
+//@include layout($widelayout);
+
+//including 24 column layout using shorthand syntax
+//@include layout(24 1/4 fluid float split);
+//End including 24 column layout using shorthand syntax
+
+//creating 24 column maps using shorthand syntax
+$map: layout(24 1/4 fluid float split);
+//creating 24 column maps using shorthand syntax
+
+// including 960px grid with 12 columned layout each 60px and 10px gutters
+//@include layout(12(60px 10px)split static);
+// End including 960px grid with 12 columned layout each 60px and 10px gutters
+
+
+@include with-layout(12){
+	.content{
+	@include container(90%);
+	}
+	.left-content h3,.left-content video{
+	@include span(10);
+	}
+	
+}
+@include breakpoint($crappy-devices){
+	.left-content h3,.left-content video{
+	/*@include span(13);*/
+	}
+}
+@include breakpoint($smalldevice-portrait){
+	.left-content{
+	//@include span(6 at 0 of 24 1/4);
+	@include span(12);
+	}
+	.right-content{
+	@include span(12);
+	}
+	.left-content h3,.left-content video{
+	@include span(12);
+	}
+	
+}
+@include breakpoint($mediumdevices-portrait){
+	.top-left-content{
+	//@include span(6 at 0 of 24 1/4);
+	@include span(6);
+	}
+	.top-right-content{
+	@include span(6 at 7);
+	}
+}
+@include breakpoint($large-desktops){
+	.left-content,.top-left-content{
+	//@include span(6 at 0 of 24 1/4);
+	@include span(6);
+	}
+	.right-content,.top-right-content{
+	@include span(6 at 7);
+	}
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<title>Endorset</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+  <!--loading bar css-->
+  <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+
+  <link href="css/main.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome/fonts/FontAwesome.otf">
+  <script src="js/modernizr.custom.js"></script>
+  <!--NG Toast styles-->
+  <link href="bower_components/ngtoast/dist/ngToast-animations.min.css">
+
+  <!--Custom styles-->
+  <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body ng-controller="NotificationController">
+<header>
+  <div class="content">
+    <div class="top-left-content">
+      <div class="logo"><img src="img/endorset.png" alt="logo" /></div>
+    </div>
+    <div class="top-right-content">
+      <div ng-controller="LoginController" class="top-form">
+        <!--Login Form-->
+        <common-login></common-login>
+        <!--Login form end-->
+        <div class="row" ng-if="currentUser.id != undefined">
+          <div class="col-md-12">
+            <!--Man nav bar-->
+            <common-top-nav></common-top-nav>
+            <!--Man nav bar end-->
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container body">
+  <div class="content">
+    <message-box-container></message-box-container>
+
+    <!--Angularui view-->
+    <main ui-view>
+
+    </main>
+  </div>
+</div>
+
+<!--My Accunt Edit Modal Template-->
+<edit-my-account></edit-my-account>
+<!--My Accunt Edit Modal Template end-->
+
+<!--Pofile Edit Modal Template-->
+<edit-profile></edit-profile>
+<!--Profile Edit Modal Template end-->
+
+<!--Notification  modal-->
+<notification-modal></notification-modal>
+<!-- Notification modal end-->
+<!-- notifications-list modal-->
+<notifications-list-modal></notifications-list-modal>
+<!-- notifications-list modal end-->
+
+<!--invite  modal-->
+<invite-user-modal></invite-user-modal>
+<!-- Ninvite modal end-->
+<!-- received invite modal-->
+<received-invite-modal></received-invite-modal>
+<!-- received invite modal end-->
+<identity-modal></identity-modal>
+<my-team-modal></my-team-modal>
+
+
+<footer>
+  <center>
+    Endorset &copy 2015 copyright All Rights Reserved.
+  </center>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- jquery file upload related. only needed if jquery file upload is used -->
+<script src="bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<script src="bower_components/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+<script src="bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<!-- end jquery file upload related -->
+<script src="bower_components/cloudinary_js/js/jquery.cloudinary.js"></script>
+<!-- angular file upload -->
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+<!-- angular file upload -->
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+<script src="bower_components/angular-off-click/offClick.js"></script>
+<script src="bower_components/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/angular-moment/angular-moment.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<!-- cloudinary angular plugin -->
+<script src="bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>
+<!-- angular file upload -->
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
+
+<!-- Angularjs ngtoast-->
+<script src="bower_components/ngtoast/dist/ngToast.min.js"></script>
+<!--react-->
+<script src="bower_components/react/react-with-addons.min.js"></script>
+<!--ngReact-->
+<script src="bower_components/ngReact/ngReact.min.js"></script>
+<!--Loading bar-->
+<script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+
+<!-- APP js -->
+<script src="js/app.js"></script>
+
+
+<!--Dashboard directive-->
+<script src="js/Dashboard/dashboardDirective.js"></script>
+<!-- Loopback angilar service-->
+<script src="js/Loopback/lb-services.js"></script>
+<!--Login Service-->
+<script src="js/Login/loginService.js"></script>
+<!--Endorsement Service-->
+<script src="js/Endorsement/endorsementService.js"></script>
+<!-- Login Controller-->
+<script src="js/Login/loginController.js"></script>
+<!--Logout Controller-->
+<script src="js/Login/logoutController.js"></script>
+<!--Forgot Password controller-->
+<script src="js/Login/forgotPasswordController.js"></script>
+<!--Signip Controller-->
+<script src="js/Signup/signupController.js"></script>
+<!--My account Controller-->
+<script src="js/User/myAccountController.js"></script>
+<!--Identity Controller-->
+<script src="js/Identity/identityController.js"></script>
+<!--Identity Directive-->
+<script src="js/Identity/identityDirective.js"></script>
+<!--Delete My account Controller-->
+<script src="js/User/deleteAccountController.js"></script>
+<!--Dashboard Controller-->
+<script src="js/Dashboard/dashboardController.js"></script>
+<!--Company Dashboard Controller-->
+<script src="js/Dashboard/companyDashboardController.js"></script>
+<!--Company User Dashboard Controller-->
+<script src="js/Dashboard/companyUserDashboard.js"></script>
+<!--Endorsement Controller-->
+<script src="js/Endorsement/endorsementController.js"></script>
+<!--Endorsement List Controller-->
+<script src="js/Endorsement/endorsementListController.js"></script>
+<!--My Profile Controller-->
+<script src="js/Profile/myProfileController.js"></script>
+<!--Edit Profile Controller-->
+<script src="js/Profile/editProfileController.js"></script>
+<!--Delete Profile Controller-->
+<script src="js/Profile/deleteProfile.js"></script>
+<!-- Profile Menu Controller-->
+<script src="js/Profile/profileMenuController.js"></script>
+<!-- My Endorset Controller-->
+<script src="js/Endorset/myEndorsetController.js"></script>
+
+<!--Question directives-->
+<script src="js/Question/questionDirective.js"></script>
+<!--Endorsement directives-->
+<script src="js/Endorsement/endorsementDirective.js"></script>
+<!--Endorset directives-->
+<script src="js/Endorset/endorsetDirective.js"></script>
+<!--Cloudinary COntroller-->
+<script src="js/Cloudinary/cloudinaryController.js"></script>
+<!--Cloudinary Service-->
+<script src="js/Cloudinary/cloudinaryService.js"></script>
+<!--Cloudinary Directive-->
+<script src="js/Cloudinary/cloudinaryDirective.js"></script>
+
+
+<!-- Email notification retrun urls controller -->
+<script src="js/Endorsement/receivedController.js"></script>
+<script src="js/Endorsement/requestController.js"></script>
+<script src="js/Endorset/requestController.js"></script>
+<script src="js/Question/questionController.js"></script>
+<!-- Email notification retrun urls controllers  end-->
+<!-- Endorset Common Directives-->
+<script src="js/Common/commonDirective.js"></script>
+<!-- Endorset Common filters-->
+<script src="js/Common/commonFilters.js"></script>
+<!-- Endorset Home controller-->
+<script src="js/Common/homeController.js"></script>
+
+<!-- user Directives-->
+<script src="js/User/userDirective.js"></script>
+<!-- profile Directives-->
+<script src="js/Profile/profileDirective.js"></script>
+<!--Notification Controller-->
+<script src="js/Notification/notificationController.js"></script>
+<!--Notification Directive-->
+<script src="js/Notification/notificationDirective.js"></script>
+<!--Notification Service-->
+<script src="js/Notification/notificationService.js"></script>
+
+<!--Endorsement Requests Reacts -->
+<script src="js/Endorsement/requestReact.js"></script>
+
+<!--Invite user -->
+<script src="js/User/inviteUser.js"></script>
+<script src="js/User/receivedInvites.js"></script>
+<script src="js/User/sentInvites.js"></script>
+<script src="js/User/myTeam.js"></script>
+<script src="js/Common/useType.js"></script>
+
+<!-- PUB SUB-->
+<script src="js/Pubsub/pubsub.js"></script>
+<script src="js/Pubsub/socket.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+</body>
+</html>

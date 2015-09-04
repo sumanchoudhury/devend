@@ -1,0 +1,82 @@
+{
+  "name": "endorset",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "endorsetScore": {
+      "type": "number",
+      "required": true
+    },
+    "avgEndorsetScore": {
+      "type": "number"
+    },
+    "created": {
+      "type": "date"
+    },
+    "modified": {
+      "type": "date"
+    },
+    "leadQuote": {
+      "type": "string"
+    },
+    "leadVideo": {
+      "type": "string"
+    },
+    "userDetailId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorsementId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "endorserEndorsementId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    },
+    "userProfileId": {
+      "type": "number",
+      "required": true,
+      "index": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userDetail": {
+      "type": "belongsTo",
+      "model": "userDetail",
+      "foreignKey": "userDetailId"
+    },
+    "endorsement": {
+      "type": "belongsTo",
+      "model": "endorsement",
+      "foreignKey": "endorsementId"
+    },
+    "endorserEndorsement": {
+      "type": "belongsTo",
+      "model": "endorserEndorsement",
+      "foreignKey": "endorserEndorsementId"
+    },
+    "userProfile": {
+      "type": "belongsTo",
+      "model": "userProfile",
+      "foreignKey": "userProfileId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": []
+}
